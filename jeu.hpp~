@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include "carte.hpp"
 #include "personnage.hpp"
+#include "carte.hpp"
 
 using namespace std;
 

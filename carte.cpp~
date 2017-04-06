@@ -24,6 +24,8 @@ void Carte::initialiser(Monstre ** m, int nb)
 		do
 		{
 			ok = 0;
+			tmp = rand() % dim * dim;
+			cerr << cases[tmp] -> estVide();
 			if (cases[tmp] -> estVide())
 			{
 				cases[tmp] -> bloquer();

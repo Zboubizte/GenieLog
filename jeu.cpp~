@@ -18,7 +18,7 @@ Jeu::Jeu()
 		tabMonstre[i] = new Monstre();
 
 	map = new Carte(dim);
+	cerr << "test" << endl;
 
 	map -> initialiser(tabMonstre, nbMonstres);
-	cerr << "test" << endl;
 }

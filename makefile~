@@ -3,8 +3,8 @@ all: game
 clean:
 	rm *.o
 
-game: main.o main.o jeu.o carte.o zone.o personnage.o monstre.o objet.o
-	g++ -o game main.o jeu.o carte.o zone.o personnage.o monstre.o objet.o
+game: main.o jeu.o personnage.o monstre.o carte.o zone.o
+	g++ -o game main.o personnage.o monstre.o carte.o
 
 main.o: main.cpp jeu.cpp jeu.cpp
 	g++ -c main.cpp

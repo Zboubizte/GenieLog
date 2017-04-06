@@ -13,10 +13,8 @@ class Zone
 
 	public:
 		Zone();
-		bool contientMonstre();
-		bool contientObjet();
-		bool estAccessible();
 		bool estVide();
+		bool estAccessible();
 		void ajouterMonstre(Monstre *);
 		void bloquer();
 };
