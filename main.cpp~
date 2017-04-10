@@ -1,6 +1,0 @@
-#include "personnage.hpp"
-
-int main()
-{
-	Jeu * game = new Jeu();
-}
