@@ -11,6 +11,7 @@ bool Zone::contientMonstre()
 bool Zone::contientObjet()
 {
 	return obj == NULL;
+}
 
 bool Zone::estVide()
 {
