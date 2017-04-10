@@ -1,4 +1,0 @@
-#include "monstre.hpp"
-
-Monstre::Monstre() : pv(100), pvmax(100)
-{}
