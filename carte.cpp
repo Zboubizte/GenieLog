@@ -12,9 +12,10 @@ Carte::Carte(int d) : dim(d)
 	cases = new Zone * [d * d];
 	for (int i = 0; i < d * d; i++)
 		cases[i] = new Zone();
+
 }
 
-void Carte::initialiser(Monstre ** m, int nb)
+void Carte::Initialiser(Monstre ** m, int nb)
 {
 	bool ok = 0;
 	int tmp;
@@ -24,6 +25,7 @@ void Carte::initialiser(Monstre ** m, int nb)
 		do
 		{
 			ok = 0;
+			tmp = rand() % (dim * dim);
 			if (cases[tmp] -> estVide())
 			{
 				cases[tmp] -> bloquer();
@@ -35,11 +37,24 @@ void Carte::initialiser(Monstre ** m, int nb)
 		do
 		{
 			ok = 0;
-			tmp = rand() % dim * dim;
+			tmp = rand() % (dim * dim);
 			if (cases[tmp] -> estVide())
 			{
 				cases[tmp] -> ajouterMonstre(m[i]);
 				ok = 1;
 			}
 		} while (!ok);
+}
+
+void Carte::Afficher()
+{
+	for (int i = 0; i < dim; i++)
+	{
+		for (int j = 0; j < dim; j++)
+		{
+			cases[i * dim + j] -> Afficher();
+			cout << " ";
+		}
+		cout << endl;
+	}
 }

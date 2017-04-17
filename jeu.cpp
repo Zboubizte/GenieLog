@@ -19,6 +19,10 @@ Jeu::Jeu()
 
 	map = new Carte(dim);
 
-	map -> initialiser(tabMonstre, nbMonstres);
-	cerr << "test" << endl;
+	map -> Initialiser(tabMonstre, nbMonstres);
+}
+
+void Jeu::Afficher()
+{
+	map -> Afficher();
 }
