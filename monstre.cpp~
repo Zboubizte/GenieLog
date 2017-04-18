@@ -43,10 +43,6 @@ int Monstre::getPV()
 	return pv;
 }
 
-bool Monstre::estVivant()
-{
-	return vivant;
-}
 
 
 

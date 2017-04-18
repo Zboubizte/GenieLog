@@ -2,7 +2,6 @@ all: game
 
 clean:
 	rm *.o
-	rm game
 
 game: main.o jeu.o carte.o zone.o personnage.o monstre.o objet.o
 	g++ -o game main.o jeu.o carte.o zone.o personnage.o monstre.o objet.o

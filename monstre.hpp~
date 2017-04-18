@@ -22,7 +22,7 @@ class Monstre
 		void subirDegat(int nbrDegats);
 		void setPV(int nbr);
 		void setVivant(bool);
-		bool estVivant();
+		void estVivant();
 		int getPV();
 };
 
