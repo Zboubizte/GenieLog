@@ -3,7 +3,7 @@ all: game
 clean:
 	rm *.o
 
-game: main.o main.o jeu.o carte.o zone.o personnage.o monstre.o objet.o
+game: main.o jeu.o carte.o zone.o personnage.o monstre.o objet.o
 	g++ -o game main.o jeu.o carte.o zone.o personnage.o monstre.o objet.o
 
 main.o: main.cpp jeu.cpp jeu.cpp
@@ -18,10 +18,10 @@ carte.o: carte.cpp carte.hpp zone.cpp
 zone.o: zone.cpp zone.hpp monstre.cpp objet.cpp
 	g++ -c zone.cpp
 
-personnage.o: personnage.cpp personnage.hpp
+personnage.o: personnage.cpp personnage.hpp monstre.cpp
 	g++ -c personnage.cpp
 
-monstre.o: monstre.cpp monstre.hpp
+monstre.o: monstre.cpp monstre.hpp personnage.cpp
 	g++ -c monstre.cpp
 
 objet.o: objet.cpp objet.hpp

@@ -1,15 +1,69 @@
 #include "monstre.hpp"
+#include "personnage.hpp"
 
-Monstre::Monstre() : vivant(1), pv(100), pvmax(100), nom("Grand mechant loup")
+Monstre::Monstre() : pv(100), pvmax(100), vivant(1), nom("Grand mechant loup")
 {}
 
-void Monstre::Tuer()
+
+void Monstre::attaquer(Personnage& cible)
 {
-	pv = 0;
-	vivant = 0;
+	cible.subirDegat(attaqueRandom());
+	if(cible.getPV() <= 0)
+	{
+		cible.setPV(0);
+		cible.setVivant(0);
+	}
 }
 
-bool Monstre::estVivant()
+int Monstre::attaqueRandom()
 {
-	return vivant;
+	srand(time(NULL));
+	return rand()%10;
 }
+
+
+
+void Monstre::subirDegat(int nbrDegats)
+{
+	pv -= nbrDegats;
+}
+
+void Monstre::setPV(int nbr)
+{
+	pv = nbr;
+}
+
+void Monstre::setVivant(bool info)
+{
+	vivant = info;
+}
+
+int Monstre::getPV()
+{
+	return pv;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
