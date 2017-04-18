@@ -9,9 +9,12 @@ class Monstre
 		int pv,
 			pvmax;
 		string nom;
+		bool vivant;
 	
 	public:
 		Monstre();
+		void Tuer();
+		bool estVivant();
 };
 
 #endif

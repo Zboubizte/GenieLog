@@ -20,9 +20,28 @@ Jeu::Jeu()
 	map = new Carte(dim);
 
 	map -> Initialiser(tabMonstre, nbMonstres);
+	
+	
+	map -> Afficher();
+	cout << endl;
+	for (int i = 0; i < 5; i++)
+		tabMonstre[i] -> Tuer();
+	map -> Afficher();
 }
 
 void Jeu::Afficher()
 {
 	map -> Afficher();
 }
+
+/*bool Jeu::Combat(Monstre * m)
+{
+	srand(time(NULL));
+	int tmp = rand() % 1;
+	bool fin = 0;
+	
+	do
+	{
+		if (tmp == 0)
+	}
+}*/

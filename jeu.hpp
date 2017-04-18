@@ -16,6 +16,7 @@ class Jeu
 	public:
 		Jeu();
 		void Afficher();
+		bool Combat(Monstre *);
 };
 
 #endif

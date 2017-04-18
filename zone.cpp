@@ -41,7 +41,7 @@ void Zone::bloquer()
 
 void Zone::Afficher()
 {
-	if (contientMonstre())
+	if (contientMonstre() && mon -> estVivant())
 		cout << "M";
 	else if (contientObjet())
 		cout << "O";
@@ -49,5 +49,7 @@ void Zone::Afficher()
 		cout << "X";
 	else if (estVide())
 		cout << "_";
+	else if (!mon -> estVivant())
+		cout << "/";
 }
 		
