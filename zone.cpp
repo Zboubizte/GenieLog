@@ -1,16 +1,16 @@
 #include "zone.hpp"
 
-Zone::Zone() : bloquee(0), mon(NULL), obj(NULL)
+Zone::Zone() : bloquee(0), mon(0), obj(0)
 {}
 
 bool Zone::contientMonstre()
 {
-	return !(mon == NULL);
+	return !(mon == 0);
 }
 
 bool Zone::contientObjet()
 {
-	return !(obj == NULL);
+	return !(obj == 0);
 }
 
 bool Zone::estBloquee()
@@ -41,15 +41,19 @@ void Zone::bloquer()
 
 void Zone::Afficher()
 {
-	if (contientMonstre() && mon -> estVivant())
-		cout << "M";
-	else if (contientObjet())
-		cout << "O";
-	else if (estBloquee())
-		cout << "X";
+	if (estBloquee())
+		cout << "Y ";
+	else if (!estVide() && mon -> estVivant())
+		cout << "X ";
 	else if (estVide())
-		cout << "_";
-	else if (!mon -> estVivant())
-		cout << "/";
+		cout << "_ ";
+	else if (!estVide() && !mon -> estVivant())
+		cout << "/ ";
+	else 
+		cout << "_ ";
 }
-		
+
+Monstre * Zone::getMonstre()
+{
+	return mon;
+}	

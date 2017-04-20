@@ -14,9 +14,15 @@ class Carte
 	public:
 		Carte();
 		Carte(int);
-		~Carte();
+
 		void Initialiser(Monstre **, int);
-		void Afficher();
+		void Afficher(int, int);
+		bool contientMonstre(int, int);
+		Monstre * getMonstre(int, int);
+		bool monstreVivant(int, int);
+		bool estAccessible(int);
+
+		int getDim();
 };
 
 #endif

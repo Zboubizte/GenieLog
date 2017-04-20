@@ -15,6 +15,7 @@ class Zone
 
 	public:
 		Zone();
+
 		bool contientMonstre();
 		bool contientObjet();
 		bool estBloquee();
@@ -23,6 +24,8 @@ class Zone
 		void ajouterObjet(Objet *);
 		void bloquer();
 		void Afficher();
+
+		Monstre * getMonstre();
 };
 
 #endif

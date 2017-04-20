@@ -1,33 +1,27 @@
 #ifndef _PERSONNAGE_HPP_
 #define _PERSONNAGE_HPP_
 
-#include <iostream>
-#include <string>
-#include <stdlib.h>
-#include <time.h>
+#include "etrevivant.hpp"
 
-using namespace std;
-
-class Monstre;
-class Personnage
+class Personnage : public EtreVivant
 {
 	private:
-		int pv, pvmax,
-			mana, manamax,
+		int mana, manamax,
 			posx, posy;
-			string nom;
-			bool vivant;
 	
 	public:
 		Personnage();
 		Personnage(string);
-		void Presenter();
-		void attaquer(Monstre& );
-		void subirDegat(int nbrDegats);
+
+		void presenter();
+		void choixAttaque(EtreVivant *);
+		int bouleDeFeu();
 		int attaqueRandom();
-		void setPV(int nbr);
-		void setVivant(bool);
-		int getPV();
+
+		int getPosX();
+		int getPosY();
+
+		void newPosition(int, int);
 };
 
 #endif

@@ -25,7 +25,7 @@ void Carte::Initialiser(Monstre ** m, int nb)
 		do
 		{
 			ok = 0;
-			tmp = rand() % (dim * dim);
+			tmp = rand() % (dim * dim - 1) + 1;
 			if (cases[tmp] -> estVide())
 			{
 				cases[tmp] -> bloquer();
@@ -37,7 +37,7 @@ void Carte::Initialiser(Monstre ** m, int nb)
 		do
 		{
 			ok = 0;
-			tmp = rand() % (dim * dim);
+			tmp = rand() % (dim * dim - 1) + 1;
 			if (cases[tmp] -> estVide())
 			{
 				cases[tmp] -> ajouterMonstre(m[i]);
@@ -46,15 +46,51 @@ void Carte::Initialiser(Monstre ** m, int nb)
 		} while (!ok);
 }
 
-void Carte::Afficher()
+void Carte::Afficher(int x, int y)
 {
+	for (int i = 0; i < dim * 2 + 3; i++)
+		cout << "-";
+	cout << endl;
+
 	for (int i = 0; i < dim; i++)
 	{
+		cout << "| ";
 		for (int j = 0; j < dim; j++)
 		{
-			cases[i * dim + j] -> Afficher();
-			cout << " ";
+			if (i == y && j == x)
+				cout << "O ";
+			else
+				cases[i * dim + j] -> Afficher();
 		}
-		cout << endl;
+		cout << "|" << endl;
 	}
+
+	for (int i = 0; i < dim * 2 + 3; i++)
+		cout << "-";
+	cout << endl << endl;
+}
+
+bool Carte::contientMonstre(int x, int y)
+{
+	return cases[y * dim + x] -> contientMonstre();
+}
+
+Monstre * Carte::getMonstre(int x, int y)
+{
+	return cases[y * dim + x] -> getMonstre();
+}
+
+bool Carte::monstreVivant(int x, int y)
+{
+	return getMonstre(x, y) -> estVivant();
+}
+
+bool Carte::estAccessible(int i)
+{
+	return i >= 0 && i < dim * dim && !cases[i] -> estBloquee();
+}
+
+int Carte::getDim()
+{
+	return dim;
 }

@@ -1,69 +1,86 @@
 #include "personnage.hpp"
-#include "monstre.hpp"
 
-Personnage::Personnage() : posx(0), posy(0), nom("Personnage"), pv(100), pvmax(100), mana(75), manamax(75), vivant(1)
+Personnage::Personnage() : EtreVivant("Personnage"), posx(0), posy(0), mana(75), manamax(75)
 {}
 
-Personnage::Personnage(string s) : posx(0), posy(0), nom(s), pv(100), pvmax(100), mana(75), manamax(75)
+Personnage::Personnage(string s) : EtreVivant(s), posx(0), posy(0), mana(75), manamax(75)
 {}
 
-void Personnage::Presenter()
+void Personnage::presenter()
 {
-	cout << "Je m'appelle " << nom << ", et j'ai actuellement " << pv << "/" << pvmax << " points de vie" << endl;
+	EtreVivant::presenter();
+	cout << "  - [" << mana << "/" << manamax << "] points de mana" << endl;
 }
 
-void Personnage::attaquer(Monstre& cible)
+void Personnage::choixAttaque(EtreVivant * cible)
 {
 	int choix;
-	cout << "Choisir l'attaque:" << endl;
-	cout << "1) attaque random (1 à 100)" << endl;
-	cin >> choix;
-	if(choix == 1)
-	{	
-		cible.subirDegat(attaqueRandom());
-	}
-	if(cible.getPV() <= 0)
-	{
-		cible.setPV(0);
-		cible.setVivant(0);
-	}
-}
+	bool attaqueReussie;
 
-void Personnage::subirDegat(int nbrDegats)
-{
-	pv -= nbrDegats;
+	do
+	{
+		attaqueReussie = 1;
+
+		cout << "Choisir l'attaque:" << endl;
+		cout << "  1) Coup de poing (10 à 20)" << endl;
+		cout << "  2) Boule de feu (20 à 30 / 15 points de mana)" << endl;
+		cout << "  3) Tout ou rien (-50 à 100)" << endl << endl;
+		cout << "Votre choix :";
+		cin >> choix;
+
+		switch (choix)
+		{
+			case 1:
+				cible -> attaquer(attaqueDeBase(), cible);
+				break;
+			case 2:
+				if (mana >= 15)
+				{
+					cible -> attaquer(bouleDeFeu(), cible);
+					mana -= 15;
+				}
+				else
+				{
+					cout << "Pas assez de mana !" << endl << endl;
+					attaqueReussie = 0;
+				}
+				break;
+			case 3:
+				cible -> attaquer(attaqueRandom(), cible);
+				break;
+			default:
+				cout << "Entree incorrecte !" << endl << endl;
+				attaqueReussie = 0;
+				break;
+		}
+	} while (!attaqueReussie);
 }
 
 int Personnage::attaqueRandom()
 {
-	srand(time(NULL));
-	return rand()%100 + 1;
+	srand(time(0));
+	cout << getNom() << " tente le tout pour le tout !" << endl;
+	return rand() % 150 - 50;
 }
 
-void Personnage::setPV(int nbr)
+int Personnage::bouleDeFeu()
 {
-	pv = nbr;
+	srand(time(0));
+	return rand() % 10 + 20;
 }
 
-void Personnage::setVivant(bool info)
+int Personnage::getPosX()
 {
-	vivant = info;
+	return posx;
 }
 
-int Personnage::getPV()
+int Personnage::getPosY()
 {
-	return pv;
+	return posy;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+void Personnage::newPosition(int x, int y)
+{
+	posx += x;
+	posy += y;
+}

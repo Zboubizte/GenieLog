@@ -3,4 +3,5 @@
 int main()
 {
 	Jeu * game = new Jeu();
+	game -> Jouer();
 }

@@ -15,8 +15,15 @@ class Jeu
 	
 	public:
 		Jeu();
+
 		void Afficher();
-		bool Combat(Monstre *);
+		bool Jouer();
+		void Combat(Monstre *);
+		bool combatPossible(int, int);
+		void choixDeplacement(int, int);
+		void seDeplacer(int, int);
+		void bouger(int, int);
+		bool resteMonstre();
 };
 
 #endif

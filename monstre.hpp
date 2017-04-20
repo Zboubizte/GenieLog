@@ -1,29 +1,15 @@
 #ifndef _MONSTRE_HPP_
 #define _MONSTRE_HPP_
 
-#include <string>
+#include "etrevivant.hpp"
 
-using namespace std;
-
-class Personnage;
-class Monstre
+class Monstre : public EtreVivant
 {
-	private:
-		int pv,
-			pvmax;
-		bool vivant;
-		string nom;
-		
-	
 	public:
 		Monstre();
-		void attaquer(Personnage& );
-		int attaqueRandom();
-		void subirDegat(int nbrDegats);
-		void setPV(int nbr);
-		void setVivant(bool);
-		bool estVivant();
-		int getPV();
+		Monstre(string);
+
+		void attaquer(EtreVivant *);
 };
 
 #endif
