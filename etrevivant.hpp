@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include <stdlib.h>
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -20,10 +20,13 @@ class EtreVivant
 		EtreVivant(string);
 
 		void presenter();
+
 		void attaquer(int, EtreVivant *);
 		int attaqueDeBase();
 		void subirDegat(int);
 		void tuer();
+		void soigner(int);
+		void perdreVie(int);
 
 		string getNom();
 		bool estVivant();	

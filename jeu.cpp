@@ -6,7 +6,7 @@ Jeu::Jeu()
 	int dim = 10;
 
 	cout << "Bienvenue dans THE GAME !\nQuel est votre nom ? ";
-	cin >> nom;
+	getline(cin, nom);
 	cout << endl;
 
 	joueur = new Personnage(nom);
@@ -70,10 +70,8 @@ void Jeu::Combat(Monstre * m)
 		tour = !tour;
 	} while (joueur -> estVivant() && m -> estVivant());
 
-	if (joueur -> estVivant())
-		cout << m -> getNom() << " a ete vaincu !" << endl << endl;
-	else
-		cout << m -> getNom() << " vous a vaincu, GAME OVER" << endl;
+	if (!joueur -> estVivant())
+		cout << "GAME OVER" << endl;
 }
 
 void Jeu::choixDeplacement(int x, int y)

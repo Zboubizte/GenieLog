@@ -24,8 +24,8 @@ void Personnage::choixAttaque(EtreVivant * cible)
 		cout << "Choisir l'attaque:" << endl;
 		cout << "  1) Coup de poing (10 à 20)" << endl;
 		cout << "  2) Boule de feu (20 à 30 / 15 points de mana)" << endl;
-		cout << "  3) Tout ou rien (-50 à 100)" << endl << endl;
-		cout << "Votre choix :";
+		cout << "  3) Tout ou rien (-50 à 50)" << endl << endl;
+		cout << "Votre choix : ";
 		cin >> choix;
 
 		switch (choix)
@@ -58,14 +58,12 @@ void Personnage::choixAttaque(EtreVivant * cible)
 
 int Personnage::attaqueRandom()
 {
-	srand(time(0));
 	cout << getNom() << " tente le tout pour le tout !" << endl;
-	return rand() % 150 - 50;
+	return rand() % 100 - 50;
 }
 
 int Personnage::bouleDeFeu()
 {
-	srand(time(0));
 	return rand() % 10 + 20;
 }
 
