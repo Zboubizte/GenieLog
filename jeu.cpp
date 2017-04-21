@@ -23,6 +23,20 @@ Jeu::Jeu()
 	map -> Initialiser(tabMonstre, nbMonstres);
 }
 
+Jeu::~Jeu()
+{
+	if (map)
+		delete map;
+	if (joueur)
+		delete joueur;
+	if (tabMonstre)
+	{
+		for (int i = 0; i < nbMonstres; i++)
+			delete tabMonstre[i];
+		delete [] tabMonstre;
+	}
+}
+
 bool Jeu::Jouer()
 {
 	do

@@ -15,6 +15,16 @@ Carte::Carte(int d) : dim(d)
 
 }
 
+Carte::~Carte()
+{
+	if (cases)
+	{
+		for (int i = 0; i < dim * dim; i++)
+			delete cases[i];
+		delete [] cases;
+	}
+}
+
 void Carte::Initialiser(Monstre ** m, int nb)
 {
 	bool ok = 0;

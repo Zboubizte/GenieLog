@@ -15,6 +15,7 @@ class Jeu
 	
 	public:
 		Jeu();
+		~Jeu();
 
 		void Afficher();
 		bool Jouer();

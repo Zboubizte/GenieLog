@@ -15,6 +15,7 @@ class Zone
 
 	public:
 		Zone();
+		~Zone();
 
 		bool contientMonstre();
 		bool contientObjet();

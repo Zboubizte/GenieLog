@@ -14,6 +14,7 @@ class Carte
 	public:
 		Carte();
 		Carte(int);
+		~Carte();
 
 		void Initialiser(Monstre **, int);
 		void Afficher(int, int);
