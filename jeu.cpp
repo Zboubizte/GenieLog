@@ -37,7 +37,7 @@ Jeu::~Jeu()
 	}
 }
 
-bool Jeu::Jouer()
+void Jeu::Jouer()
 {
 	do
 	{
@@ -51,14 +51,14 @@ bool Jeu::Jouer()
 	} while (resteMonstre() && joueur -> estVivant());
 }
 
-void Jeu::Afficher()
+void Jeu::Afficher() const
 {
 	joueur -> presenter();
 	cout << endl;
 	map -> Afficher(joueur -> getPosX(), joueur -> getPosY());
 }
 
-bool Jeu::combatPossible(int x, int y)
+bool Jeu::combatPossible(int x, int y) const
 {
 	return map -> contientMonstre(x, y) && map -> monstreVivant(x, y);
 }
@@ -123,7 +123,6 @@ void Jeu::choixDeplacement(int x, int y)
 		default:
 			cout << "Choix invalide !" << endl << endl;
 	}
-
 }
 
 void Jeu::bouger(int xx, int yy)
@@ -164,7 +163,7 @@ void Jeu::seDeplacer(int x, int y)
 	joueur -> newPosition(x, y);
 }
 
-bool Jeu::resteMonstre()
+bool Jeu::resteMonstre() const
 {
 	for (int i = 0; i < nbMonstres; i++)
 		if (tabMonstre[i] -> estVivant())

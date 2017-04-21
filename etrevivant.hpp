@@ -19,17 +19,17 @@ class EtreVivant
 		EtreVivant();
 		EtreVivant(string);
 
-		void presenter();
+		void presenter() const;
 
-		void attaquer(int, EtreVivant *);
-		int attaqueDeBase();
+		void attaquer(int, EtreVivant *) const;
+		int attaqueDeBase() const;
 		void subirDegat(int);
 		void tuer();
 		void soigner(int);
 		void perdreVie(int);
 
-		string getNom();
-		bool estVivant();	
+		string getNom() const;
+		bool estVivant() const;	
 };
 
 #endif

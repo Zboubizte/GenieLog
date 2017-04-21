@@ -17,13 +17,13 @@ class Carte
 		~Carte();
 
 		void Initialiser(Monstre **, int);
-		void Afficher(int, int);
-		bool contientMonstre(int, int);
-		Monstre * getMonstre(int, int);
-		bool monstreVivant(int, int);
-		bool estAccessible(int);
+		void Afficher(int, int) const;
+		bool contientMonstre(int, int) const;
+		Monstre * getMonstre(int, int) const;
+		bool monstreVivant(int, int) const;
+		bool estAccessible(int) const;
 
-		int getDim();
+		int getDim() const;
 };
 
 #endif

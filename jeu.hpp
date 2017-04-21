@@ -17,14 +17,14 @@ class Jeu
 		Jeu();
 		~Jeu();
 
-		void Afficher();
-		bool Jouer();
+		void Afficher() const;
+		void Jouer();
 		void Combat(Monstre *);
-		bool combatPossible(int, int);
+		bool combatPossible(int, int) const;
 		void choixDeplacement(int, int);
 		void seDeplacer(int, int);
 		void bouger(int, int);
-		bool resteMonstre();
+		bool resteMonstre() const;
 };
 
 #endif

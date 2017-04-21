@@ -6,18 +6,18 @@ EtreVivant::EtreVivant() : nom("Etre Vivant"), pv(100), pvmax(100), vivant(1)
 EtreVivant::EtreVivant(string s) : nom(s), pv(100), pvmax(100), vivant(1)
 {}
 
-void EtreVivant::presenter()
+void EtreVivant::presenter() const
 {
 	cout << nom << " :" << endl;
 	cout << "  - [" << pv << "/" << pvmax << "] points de vie" << endl;
 }
 
-void EtreVivant::attaquer(int nbr, EtreVivant * cible)
+void EtreVivant::attaquer(int nbr, EtreVivant * cible) const
 {
 	cible -> subirDegat(nbr);
 }
 
-int EtreVivant::attaqueDeBase()
+int EtreVivant::attaqueDeBase() const
 {
 	cout << nom << " met un coup de poing !" << endl;
 	return rand() % 10 + 10;
@@ -60,12 +60,12 @@ void EtreVivant::perdreVie(int nbrDegats)
 	}
 }	
 
-string EtreVivant::getNom()
+string EtreVivant::getNom() const
 {
 	return nom;
 }
 
-bool EtreVivant::estVivant()
+bool EtreVivant::estVivant() const
 {
 	return vivant;
 }

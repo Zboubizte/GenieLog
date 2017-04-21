@@ -6,7 +6,7 @@ Personnage::Personnage() : EtreVivant("Personnage"), posx(0), posy(0), mana(75),
 Personnage::Personnage(string s) : EtreVivant(s), posx(0), posy(0), mana(75), manamax(75)
 {}
 
-void Personnage::presenter()
+void Personnage::presenter() const
 {
 	EtreVivant::presenter();
 	cout << "  - [" << mana << "/" << manamax << "] points de mana" << endl;
@@ -56,23 +56,23 @@ void Personnage::choixAttaque(EtreVivant * cible)
 	} while (!attaqueReussie);
 }
 
-int Personnage::attaqueRandom()
+int Personnage::attaqueRandom() const
 {
 	cout << getNom() << " tente le tout pour le tout !" << endl;
 	return rand() % 100 - 50;
 }
 
-int Personnage::bouleDeFeu()
+int Personnage::bouleDeFeu() const
 {
 	return rand() % 10 + 20;
 }
 
-int Personnage::getPosX()
+int Personnage::getPosX() const
 {
 	return posx;
 }
 
-int Personnage::getPosY()
+int Personnage::getPosY() const
 {
 	return posy;
 }

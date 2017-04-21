@@ -1,13 +1,13 @@
 #include "carte.hpp"
 
-Carte::Carte() : dim(10)
+Carte::Carte() : dim(10), cases(0)
 {
 	cases = new Zone * [dim * dim];
 	for (int i = 0; i < dim * dim; i++)
 		cases[i] = new Zone();
 }
 
-Carte::Carte(int d) : dim(d)
+Carte::Carte(int d) : dim(d), cases(0)
 {
 	cases = new Zone * [d * d];
 	for (int i = 0; i < d * d; i++)
@@ -56,7 +56,7 @@ void Carte::Initialiser(Monstre ** m, int nb)
 		} while (!ok);
 }
 
-void Carte::Afficher(int x, int y)
+void Carte::Afficher(int x, int y) const
 {
 	for (int i = 0; i < dim * 2 + 3; i++)
 		cout << "-";
@@ -80,27 +80,27 @@ void Carte::Afficher(int x, int y)
 	cout << endl << endl;
 }
 
-bool Carte::contientMonstre(int x, int y)
+bool Carte::contientMonstre(int x, int y) const
 {
 	return cases[y * dim + x] -> contientMonstre();
 }
 
-Monstre * Carte::getMonstre(int x, int y)
+Monstre * Carte::getMonstre(int x, int y) const
 {
 	return cases[y * dim + x] -> getMonstre();
 }
 
-bool Carte::monstreVivant(int x, int y)
+bool Carte::monstreVivant(int x, int y) const
 {
 	return getMonstre(x, y) -> estVivant();
 }
 
-bool Carte::estAccessible(int i)
+bool Carte::estAccessible(int i) const
 {
 	return i >= 0 && i < dim * dim && !cases[i] -> estBloquee();
 }
 
-int Carte::getDim()
+int Carte::getDim() const
 {
 	return dim;
 }

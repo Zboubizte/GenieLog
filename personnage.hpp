@@ -13,13 +13,13 @@ class Personnage : public EtreVivant
 		Personnage();
 		Personnage(string);
 
-		void presenter();
+		void presenter() const;
 		void choixAttaque(EtreVivant *);
-		int bouleDeFeu();
-		int attaqueRandom();
+		int bouleDeFeu() const;
+		int attaqueRandom() const;
 
-		int getPosX();
-		int getPosY();
+		int getPosX() const;
+		int getPosY() const;
 
 		void newPosition(int, int);
 };

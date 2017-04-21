@@ -11,22 +11,22 @@ Zone::~Zone()
 		delete obj;
 }
 
-bool Zone::contientMonstre()
+bool Zone::contientMonstre() const
 {
 	return !(mon == 0);
 }
 
-bool Zone::contientObjet()
+bool Zone::contientObjet() const
 {
 	return !(obj == 0);
 }
 
-bool Zone::estBloquee()
+bool Zone::estBloquee() const
 {
 	return bloquee;
 }
 
-bool Zone::estVide()
+bool Zone::estVide() const
 {
 	if (!estBloquee() && !contientMonstre() && !contientObjet())
 		return 1;
@@ -47,7 +47,7 @@ void Zone::bloquer()
 	bloquee = 1;
 }
 
-void Zone::Afficher()
+void Zone::Afficher() const
 {
 	if (estBloquee())
 		cout << "Y ";
@@ -61,7 +61,7 @@ void Zone::Afficher()
 		cout << "_ ";
 }
 
-Monstre * Zone::getMonstre()
+Monstre * Zone::getMonstre() const
 {
 	return mon;
 }	
