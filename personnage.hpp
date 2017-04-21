@@ -2,6 +2,7 @@
 #define _PERSONNAGE_HPP_
 
 #include "etrevivant.hpp"
+#include "fonctions.hpp"
 
 class Personnage : public EtreVivant
 {

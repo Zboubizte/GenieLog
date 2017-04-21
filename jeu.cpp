@@ -1,17 +1,41 @@
 #include "jeu.hpp"
 
-Jeu::Jeu()
+Jeu::Jeu() : map(0), joueur(0), nbMonstres(0), difficulte(0), tabMonstre(0)
+{}
+
+Jeu::Jeu(int d) : map(0), joueur(0), nbMonstres(0), difficulte(d), tabMonstre(0)
 {
 	string nom;
-	int dim = 10;
-
-	cout << "Bienvenue dans THE GAME !\nQuel est votre nom ? ";
-	getline(cin, nom);
+	int dim;
+	
+	cout << "Aventurier, quel est votre nom ? ";
+	nom = saisirString();
 	cout << endl;
 
 	joueur = new Personnage(nom);
 
-	nbMonstres = dim * dim / 100 + 2;
+	if (d != 5)
+	{
+		dim = 10;
+		nbMonstres = 4;
+	}
+	else
+	{
+		cout << "Taille de la carte (dim * dim) ?" << endl;
+		cout << "  dim = ";
+		dim = saisirInt();
+		cout << endl;
+		cout << "Nombre de monstres (1 - " << dim * dim - (dim * dim) / 4 - 1 << ") ? ";
+		nbMonstres = saisirInt();
+		cout << endl;
+		cout << "Voulez vous..." << endl;
+		cout << "  1) Voir les monstres et les cases visitées" << endl;
+		cout << "  2) Juste les cases visitées" << endl;
+		cout << "  3) Aucun des deux" << endl << endl;
+		cout << "Votre choix : ";
+		difficulte = saisirInt();
+		cout << endl;
+	}
 
 	tabMonstre = new Monstre * [nbMonstres];
 
@@ -19,7 +43,6 @@ Jeu::Jeu()
 		tabMonstre[i] = new Monstre();
 
 	map = new Carte(dim);
-
 	map -> Initialiser(tabMonstre, nbMonstres);
 }
 
@@ -77,9 +100,16 @@ void Jeu::Combat(Monstre * m)
 		cout << endl << "C'est a " << (tour ? joueur -> getNom() : m -> getNom()) << " d'attaquer !" << endl << endl;
 
 		if (tour)
+		{
 			joueur -> choixAttaque(m);
+			purgerBuffer();
+			continuer();
+		}
 		else
+		{
 			m -> attaquer(joueur);
+			continuer();
+		}
 
 		tour = !tour;
 	} while (joueur -> estVivant() && m -> estVivant());
@@ -102,7 +132,7 @@ void Jeu::choixDeplacement(int x, int y)
 	cout << "  4) A gauche" << endl << endl;
 	cout << "Votre choix : ";
 
-	cin >> choix;
+	choix = saisirInt();
 
 	cout << endl;
 
@@ -139,7 +169,7 @@ void Jeu::bouger(int xx, int yy)
 		cout << "  1) Oui" << endl;
 		cout << "  2) Non" << endl << endl;
 		cout << "Votre choix : ";
-		cin >> choix;
+		choix = saisirInt();
 		cout << endl;
 		
 		switch (choix)

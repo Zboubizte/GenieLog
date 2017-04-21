@@ -29,7 +29,7 @@ void Carte::Initialiser(Monstre ** m, int nb)
 {
 	bool ok = 0;
 	int tmp;
-	srand(time(NULL));
+	srand(time(0));
 
 	for (int i = 0; i < dim * dim / 4; i++)		//On bloque aléatoirement 1/4 des cases
 		do

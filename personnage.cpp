@@ -26,7 +26,8 @@ void Personnage::choixAttaque(EtreVivant * cible)
 		cout << "  2) Boule de feu (20 à 30 / 15 points de mana)" << endl;
 		cout << "  3) Tout ou rien (-50 à 50)" << endl << endl;
 		cout << "Votre choix : ";
-		cin >> choix;
+		choix = saisirInt();
+		cout << endl;
 
 		switch (choix)
 		{

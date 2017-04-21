@@ -10,11 +10,13 @@ class Jeu
 	private:
 		Carte * map;
 		Personnage * joueur;
-		int nbMonstres;
+		int nbMonstres,
+			difficulte;
 		Monstre ** tabMonstre;
 	
 	public:
 		Jeu();
+		Jeu(int);
 		~Jeu();
 
 		void Afficher() const;
