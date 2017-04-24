@@ -1,4 +1,10 @@
-#include "jeu.hpp"
+/*!
+ * \file main.cpp
+ * \brief Programme principal du jeu (main)
+ * \author Ken Bres
+ */
+
+ #include "jeu.hpp"
 #include "fonctions.hpp"
 
 int main()
@@ -11,8 +17,8 @@ int main()
 		return 0;
 	
 	srand(time(0));
-	Jeu * game = new Jeu(dif);
-	game -> Jouer();
+	Jeu game(dif);
+	game.jouer();
 
 	return 0;
 }

@@ -1,18 +1,16 @@
+/*!
+ * \file carte.cpp
+ * \brief Fonctions de la Carte
+ * \author Ken Bres
+ */
+
 #include "carte.hpp"
 
-Carte::Carte() : dim(10), cases(0)
+Carte::Carte(int dimension = 10) : dim(dimension), cases(0)
 {
-	cases = new Zone * [dim * dim];
-	for (int i = 0; i < dim * dim; i++)
+	cases = new Zone * [dimension * dimension];
+	for (int i = 0; i < dimension * dimension; i++)
 		cases[i] = new Zone();
-}
-
-Carte::Carte(int d) : dim(d), cases(0)
-{
-	cases = new Zone * [d * d];
-	for (int i = 0; i < d * d; i++)
-		cases[i] = new Zone();
-
 }
 
 Carte::~Carte()
@@ -25,38 +23,28 @@ Carte::~Carte()
 	}
 }
 
-void Carte::Initialiser(Monstre ** m, int nb)
+void Carte::Initialiser(Monstre ** tab_monstres, int nb_monstres/*, Consommable ** tab_consommable, int nb_consommable*/)
 {
-	bool ok = 0;
-	int tmp;
-	srand(time(0));
+	int tmp,
+		param [2] = { dim * dim / 4, nb_monstres/*, nb_consommables*/ };
 
-	for (int i = 0; i < dim * dim / 4; i++)		//On bloque aléatoirement 1/4 des cases
-		do
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < param[i]; j++)
 		{
-			ok = 0;
-			tmp = rand() % (dim * dim - 1) + 1;
-			if (cases[tmp] -> estVide())
-			{
+			do { tmp = rand() % (dim * dim - 1) + 1; } while (!cases[tmp] -> estVide());
+
+			if (i == 0)
 				cases[tmp] -> bloquer();
-				ok = 1;
-			}
-		} while (!ok);
-	
-	for (int i = 0; i < nb; i++)				//On affecte aléatoirement les monstres sur les cases vides
-		do
-		{
-			ok = 0;
-			tmp = rand() % (dim * dim - 1) + 1;
-			if (cases[tmp] -> estVide())
-			{
-				cases[tmp] -> ajouterMonstre(m[i]);
-				ok = 1;
-			}
-		} while (!ok);
+			else if (i == 1)
+				cases[tmp] -> ajouterMonstre(tab_monstres[i]);
+			/*else
+				cases[tmp] -> ajouterConsommable(tab_consommable[i]);*/
+		}
+	}
 }
 
-void Carte::Afficher(int x, int y) const
+void Carte::afficher_carte(int x, int y) const
 {
 	for (int i = 0; i < dim * 2 + 3; i++)
 		cout << "-";
@@ -70,7 +58,7 @@ void Carte::Afficher(int x, int y) const
 			if (i == y && j == x)
 				cout << "O ";
 			else
-				cases[i * dim + j] -> Afficher();
+				cases[i * dim + j] -> afficher_zone();
 		}
 		cout << "|" << endl;
 	}
@@ -95,9 +83,9 @@ bool Carte::monstreVivant(int x, int y) const
 	return getMonstre(x, y) -> estVivant();
 }
 
-bool Carte::estAccessible(int i) const
+bool Carte::estAccessible(int num_case) const
 {
-	return i >= 0 && i < dim * dim && !cases[i] -> estBloquee();
+	return num_case >= 0 && num_case < dim * dim && !cases[num_case] -> estBloquee();
 }
 
 int Carte::getDim() const

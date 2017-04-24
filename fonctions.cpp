@@ -1,3 +1,9 @@
+/*!
+ * \file fonctions.cpp
+ * \brief Développement des fonctions annexe
+ * \author Ken Bres
+ */
+
 #include "fonctions.hpp"
 
 int menu()

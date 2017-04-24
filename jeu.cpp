@@ -1,20 +1,23 @@
+/*!
+ * \file jeu.cpp
+ * \brief Fonctions de Jeu
+ * \author Ken Bres
+ */
+
 #include "jeu.hpp"
 
-Jeu::Jeu() : map(0), joueur(0), nbMonstres(0), difficulte(0), tabMonstre(0)
-{}
-
-Jeu::Jeu(int d) : map(0), joueur(0), nbMonstres(0), difficulte(d), tabMonstre(0)
+Jeu::Jeu(int niv_difficulte = 0) : map(0), joueur(0), nbMonstres(0), difficulte(niv_difficulte), tabMonstre(0)
 {
 	string nom;
 	int dim;
 	
-	cout << "Aventurier, quel est votre nom ? ";
+	cout << "Bienvenue jeune aventurier, quel est votre nom ? ";
 	nom = saisirString();
 	cout << endl;
 
 	joueur = new Personnage(nom);
 
-	if (d != 5)
+	if (niv_difficulte != 5)
 	{
 		dim = 10;
 		nbMonstres = 4;
@@ -60,7 +63,14 @@ Jeu::~Jeu()
 	}
 }
 
-void Jeu::Jouer()
+void Jeu::afficher_jeu() const
+{
+	joueur -> presenter();
+	cout << endl;
+	map -> afficher_carte(joueur -> getPosX(), joueur -> getPosY());
+}
+
+void Jeu::jouer()
 {
 	do
 	{
@@ -68,25 +78,13 @@ void Jeu::Jouer()
 			y = joueur -> getPosY();
 
 		if (combatPossible(x, y))
-			Combat(map -> getMonstre(x, y));
+			combat(map -> getMonstre(x, y));
 		else
 			choixDeplacement(x, y);
 	} while (resteMonstre() && joueur -> estVivant());
 }
 
-void Jeu::Afficher() const
-{
-	joueur -> presenter();
-	cout << endl;
-	map -> Afficher(joueur -> getPosX(), joueur -> getPosY());
-}
-
-bool Jeu::combatPossible(int x, int y) const
-{
-	return map -> contientMonstre(x, y) && map -> monstreVivant(x, y);
-}
-
-void Jeu::Combat(Monstre * m)
+void Jeu::combat(Monstre * adversaire)
 {
 	bool tour = 1;
 
@@ -96,26 +94,31 @@ void Jeu::Combat(Monstre * m)
 	{
 		joueur -> presenter();
 		cout << endl;
-		m -> presenter();
-		cout << endl << "C'est a " << (tour ? joueur -> getNom() : m -> getNom()) << " d'attaquer !" << endl << endl;
+		adversaire -> presenter();
+		cout << endl << "C'est a " << (tour ? joueur -> getNom() : adversaire -> getNom()) << " d'attaquer !" << endl << endl;
 
 		if (tour)
 		{
-			joueur -> choixAttaque(m);
+			joueur -> choixAttaque(adversaire);
 			purgerBuffer();
 			continuer();
 		}
 		else
 		{
-			m -> attaquer(joueur);
+			adversaire -> attaquer(joueur);
 			continuer();
 		}
 
 		tour = !tour;
-	} while (joueur -> estVivant() && m -> estVivant());
+	} while (joueur -> estVivant() && adversaire -> estVivant());
 
 	if (!joueur -> estVivant())
 		cout << "GAME OVER" << endl;
+}
+
+bool Jeu::combatPossible(int x, int y) const
+{
+	return map -> contientMonstre(x, y) && map -> monstreVivant(x, y);
 }
 
 void Jeu::choixDeplacement(int x, int y)
@@ -123,7 +126,7 @@ void Jeu::choixDeplacement(int x, int y)
 	int choix,
 		dim = map -> getDim();
 
-	Afficher();
+	afficher_jeu();
 
 	cout << "Ou voulez vous aller ?" << endl;
 	cout << "  1) En haut" << endl;
@@ -155,15 +158,15 @@ void Jeu::choixDeplacement(int x, int y)
 	}
 }
 
-void Jeu::bouger(int xx, int yy)
+void Jeu::bouger(int x, int y)
 {
-	int x = joueur -> getPosX() + xx,
-		y = joueur -> getPosY() + yy,
+	int xx = joueur -> getPosX() + x,
+		yy = joueur -> getPosY() + y,
 		choix;
 
-	if (map -> estAccessible(y * map -> getDim() + x))
-		seDeplacer(xx, yy);
-	else if (map -> estAccessible((joueur -> getPosY() + 2 * yy) * map -> getDim() + (joueur -> getPosX() + 2 * xx)))
+	if (map -> estAccessible(yy * map -> getDim() + xx))
+		seDeplacer(x, y);
+	else if (map -> estAccessible((joueur -> getPosY() + 2 * y) * map -> getDim() + (joueur -> getPosX() + 2 * x)))
 	{
 		cout << "Vous rencontrez un obstacle, voulez vous l'enjamber ?" << endl;
 		cout << "  1) Oui" << endl;
@@ -175,7 +178,7 @@ void Jeu::bouger(int xx, int yy)
 		switch (choix)
 		{
 			case 1:
-				seDeplacer(2 * xx, 2 * yy);
+				seDeplacer(2 * x, 2 * y);
 				break;
 			case 2:
 				break;

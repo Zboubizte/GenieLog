@@ -1,12 +1,18 @@
+/*!
+ * \file main.cpp
+ * \brief Fonctions des Monstre
+ * \author Ken Bres
+ */
+
 #include "monstre.hpp"
 
-Monstre::Monstre() : EtreVivant("Grand mechant loup")
+Monstre::Monstre() : Individu("Grand méchant loup")
 {}
 
-Monstre::Monstre(string s) : EtreVivant(s)
+Monstre::Monstre(string nom_monstre) : Individu(nom_monstre)
 {}
 
-void Monstre::attaquer(EtreVivant * cible)
+void Monstre::attaquer(Individu * cible)
 {
-	EtreVivant::attaquer(attaqueDeBase(), cible);
+	Individu::attaquer(attaqueDeBase(), cible);
 }

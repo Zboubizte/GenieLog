@@ -1,18 +1,24 @@
+/*!
+ * \file personnage.cpp
+ * \brief Fonctions du Personnage
+ * \author Ken Bres
+ */
+
 #include "personnage.hpp"
 
-Personnage::Personnage() : EtreVivant("Personnage"), posx(0), posy(0), mana(75), manamax(75)
+Personnage::Personnage() : Individu("Magicien d'Oz"), posx(0), posy(0), mana(75), manamax(75)
 {}
 
-Personnage::Personnage(string s) : EtreVivant(s), posx(0), posy(0), mana(75), manamax(75)
+Personnage::Personnage(string nom_personnage) : Individu(nom_personnage), posx(0), posy(0), mana(75), manamax(75)
 {}
 
 void Personnage::presenter() const
 {
-	EtreVivant::presenter();
+	Individu::presenter();
 	cout << "  - [" << mana << "/" << manamax << "] points de mana" << endl;
 }
 
-void Personnage::choixAttaque(EtreVivant * cible)
+void Personnage::choixAttaque(Individu * cible)
 {
 	int choix;
 	bool attaqueReussie;
@@ -57,15 +63,15 @@ void Personnage::choixAttaque(EtreVivant * cible)
 	} while (!attaqueReussie);
 }
 
+int Personnage::bouleDeFeu() const
+{
+	return rand() % 10 + 20;
+}
+
 int Personnage::attaqueRandom() const
 {
 	cout << getNom() << " tente le tout pour le tout !" << endl;
 	return rand() % 100 - 50;
-}
-
-int Personnage::bouleDeFeu() const
-{
-	return rand() % 10 + 20;
 }
 
 int Personnage::getPosX() const

@@ -4,8 +4,8 @@ clean:
 	rm *.o
 	rm game
 
-game: main.o fonctions.o jeu.o carte.o zone.o personnage.o monstre.o etrevivant.o objet.o
-	g++ -o game main.o fonctions.o jeu.o carte.o zone.o personnage.o monstre.o etrevivant.o objet.o
+game: main.o fonctions.o jeu.o carte.o zone.o personnage.o monstre.o individu.o consommable.o
+	g++ -o game main.o fonctions.o jeu.o carte.o zone.o personnage.o monstre.o individu.o consommable.o
 
 main.o: main.cpp jeu.hpp
 	g++ -c main.cpp
@@ -19,17 +19,17 @@ jeu.o: jeu.cpp jeu.hpp carte.hpp personnage.hpp
 carte.o: carte.cpp carte.hpp zone.hpp
 	g++ -c carte.cpp
 
-zone.o: zone.cpp zone.hpp monstre.hpp etrevivant.hpp objet.hpp
+zone.o: zone.cpp zone.hpp monstre.hpp individu.hpp consommable.hpp
 	g++ -c zone.cpp
 
-personnage.o: personnage.cpp personnage.hpp etrevivant.hpp fonctions.hpp
+personnage.o: personnage.cpp personnage.hpp individu.hpp fonctions.hpp
 	g++ -c personnage.cpp
 
-monstre.o: monstre.cpp monstre.hpp etrevivant.hpp
+monstre.o: monstre.cpp monstre.hpp individu.hpp
 	g++ -c monstre.cpp
 
-etrevivant.o: etrevivant.cpp etrevivant.hpp
-	g++ -c etrevivant.cpp
+individu.o: individu.cpp individu.hpp
+	g++ -c individu.cpp
 
-objet.o: objet.cpp objet.hpp
-	g++ -c objet.cpp
+consommable.o: consommable.cpp consommable.hpp
+	g++ -c consommable.cpp
