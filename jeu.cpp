@@ -9,13 +9,36 @@
 Jeu::Jeu(int niv_difficulte = 0) : map(0), joueur(0), nbMonstres(0), difficulte(niv_difficulte), tabMonstre(0)
 {
 	string nom;
-	int dim;
+	int dim, classe = 1;
 	
 	cout << "Bienvenue jeune aventurier, quel est votre nom ? ";
 	nom = saisirString();
 	cout << endl;
 
-	joueur = new Personnage(nom);
+	cout << "Quelle classe voulez-vous incarner ?" << endl;
+	cout << "  1) Magicien" << endl;
+	cout << "  2) Tank" << endl;
+	cout << "  3) Guerrier" << endl;
+	cout << "  4) Médecin" << endl << endl;
+	cout << "Votre choix : ";
+	do
+	{
+		if (!(classe > 0 && classe < 5))
+			cout << "Veuillez entrer un choix valide : ";
+
+		classe = saisirInt();
+	} while (!(classe > 0 && classe < 5));
+
+	if (classe == 1)
+		joueur = new Magicien(nom);
+	else if (classe == 2)
+		joueur = new Tank(nom);
+	else if (classe == 3)
+		joueur = new Guerrier(nom);
+	else if (classe == 4)
+		joueur = new Medecin(nom);
+	else
+		joueur = new Personnage(nom);
 
 	if (niv_difficulte != 5)
 	{

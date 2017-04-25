@@ -37,7 +37,7 @@ void Carte::Initialiser(Monstre ** tab_monstres, int nb_monstres/*, Consommable 
 			if (i == 0)
 				cases[tmp] -> bloquer();
 			else if (i == 1)
-				cases[tmp] -> ajouterMonstre(tab_monstres[i]);
+				cases[tmp] -> ajouterMonstre(tab_monstres[j]);
 			/*else
 				cases[tmp] -> ajouterConsommable(tab_consommable[i]);*/
 		}

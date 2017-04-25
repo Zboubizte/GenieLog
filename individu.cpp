@@ -43,7 +43,6 @@ void Individu::tuer()
 
 void Individu::soigner(int soin)
 {
-	cout << "--------------------  " << soin << endl << endl;
 	cout << nom << " récupère " << soin << " points de vie !" << endl << endl;
 	
 	if (pv + soin > pvmax)

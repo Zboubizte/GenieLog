@@ -19,7 +19,7 @@
 
 class Personnage : public Individu
 {
-	private:
+	protected:
 		int mana,		//!< Points de mana actuel
 			manamax,	//!< Points de mana maximum
 			posx,		//!< Position en x sur la carte
@@ -59,7 +59,8 @@ class Personnage : public Individu
 		 * Lance une boule de feu faisant de 20 à 30 de dégats, mais coutant 15 de mana.
 		 * \return Les dégats de la boule de feu
 		*/
-		int bouleDeFeu() const;
+		virtual int attaqueSpeciale();
+		virtual int attaqueDeBase() const;
 		/*!
 		 * \brief Attaque à risque
 		 *
@@ -91,6 +92,8 @@ class Personnage : public Individu
 		 * \param y : Valeur à ajouter à la position en y (posy) du personnage sur la carte
 		*/
 		void newPosition(int, int);
+		virtual string getSpecial() const;
+		virtual string getBasic() const;
 };
 
 #endif

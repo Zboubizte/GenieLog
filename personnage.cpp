@@ -6,7 +6,7 @@
 
 #include "personnage.hpp"
 
-Personnage::Personnage() : Individu("Magicien d'Oz"), posx(0), posy(0), mana(75), manamax(75)
+Personnage::Personnage() : Individu("Personnage"), posx(0), posy(0), mana(75), manamax(75)
 {}
 
 Personnage::Personnage(string nom_personnage) : Individu(nom_personnage), posx(0), posy(0), mana(75), manamax(75)
@@ -28,8 +28,8 @@ void Personnage::choixAttaque(Individu * cible)
 		attaqueReussie = 1;
 
 		cout << "Choisir l'attaque:" << endl;
-		cout << "  1) Coup de poing (10 à 20)" << endl;
-		cout << "  2) Boule de feu (20 à 30 / 15 points de mana)" << endl;
+		cout << "  1) " << getBasic() << endl;
+		cout << "  2) " << getSpecial() << " (-15 mana)" << endl;
 		cout << "  3) Tout ou rien (-50 à 50)" << endl << endl;
 		cout << "Votre choix : ";
 		choix = saisirInt();
@@ -43,7 +43,7 @@ void Personnage::choixAttaque(Individu * cible)
 			case 2:
 				if (mana >= 15)
 				{
-					cible -> attaquer(bouleDeFeu(), cible);
+					cible -> attaquer(attaqueSpeciale(), cible);
 					mana -= 15;
 				}
 				else
@@ -63,9 +63,17 @@ void Personnage::choixAttaque(Individu * cible)
 	} while (!attaqueReussie);
 }
 
-int Personnage::bouleDeFeu() const
+int Personnage::attaqueDeBase() const
 {
-	return rand() % 10 + 20;
+	cout << nom << " effectue une attaque de base !" << endl;
+	return rand() % 5 + 10;
+}
+	
+
+int Personnage::attaqueSpeciale()
+{
+	cout << nom << " effectue une attaque spéciale !" << endl;
+	return rand() % 5 + 20;
 }
 
 int Personnage::attaqueRandom() const
@@ -88,4 +96,14 @@ void Personnage::newPosition(int x, int y)
 {
 	posx += x;
 	posy += y;
+}
+
+string Personnage::getSpecial() const
+{
+	return "Attaque spéciale (20-25)";
+}
+
+string Personnage::getBasic() const
+{
+	return "Attaque de base (10-15)";
 }

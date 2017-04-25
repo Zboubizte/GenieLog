@@ -8,7 +8,10 @@
  */
 
 #include "carte.hpp"
-#include "personnage.hpp"
+#include "magicien.hpp"
+#include "tank.hpp"
+#include "guerrier.hpp"
+#include "medecin.hpp"
 
 /*!
  * \class Jeu

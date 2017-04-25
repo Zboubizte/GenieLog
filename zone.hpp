@@ -2,8 +2,8 @@
 #define _ZONE_HPP_
 
 /*!
- * \file .hpp
- * \brief Entête de 
+ * \file zone.hpp
+ * \brief Entête de Zone
  * \author Ken Bres
  */
 
@@ -23,7 +23,8 @@ using namespace std;
 class Zone
 {
 	private:
-		bool bloquee;		//!< Permet de savoir si la case est accessible (false) ou non (true)
+		bool bloquee,		//!< Permet de savoir si la case est accessible (false) ou non (true)
+			 visitee;
 		Monstre * mon;		//!< Pointeur vers un éventuel Monstre
 		Consommable * obj;	//!< Pointeur vers un éventuel Consommable
 

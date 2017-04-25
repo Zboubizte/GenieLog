@@ -66,7 +66,7 @@ class Individu
 		 * Appelle perdreVie(), sauf si les dégats sont négatif, auquel cas appelle soigner().
 		 * \param degats : quantité de vie à enlver
 		 */
-		void subirDegat(int);
+		virtual void subirDegat(int);
 		/*!
 		 * \brief Tue l'individu
 		 *
@@ -102,7 +102,7 @@ class Individu
 		 * Permet de savoir si un individu est bel et bien vivant.
 		 * \return true si il est vivant, false sinon
 		 */
-		bool estVivant() const;	
+		bool estVivant() const;
 };
 
 #endif

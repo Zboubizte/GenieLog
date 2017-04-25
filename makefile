@@ -4,8 +4,8 @@ clean:
 	rm *.o
 	rm game
 
-game: main.o fonctions.o jeu.o carte.o zone.o personnage.o monstre.o individu.o consommable.o
-	g++ -o game main.o fonctions.o jeu.o carte.o zone.o personnage.o monstre.o individu.o consommable.o
+game: main.o fonctions.o jeu.o carte.o zone.o personnage.o monstre.o individu.o consommable.o magicien.o tank.o guerrier.o medecin.o
+	g++ -o game main.o fonctions.o jeu.o carte.o zone.o personnage.o monstre.o individu.o consommable.o magicien.o tank.o guerrier.o medecin.o
 
 main.o: main.cpp jeu.hpp
 	g++ -c main.cpp
@@ -21,6 +21,18 @@ carte.o: carte.cpp carte.hpp zone.hpp
 
 zone.o: zone.cpp zone.hpp monstre.hpp individu.hpp consommable.hpp
 	g++ -c zone.cpp
+
+magicien.o: magicien.cpp magicien.hpp personnage.hpp individu.hpp
+	g++ -c magicien.cpp
+
+tank.o: magicien.cpp magicien.hpp personnage.hpp individu.hpp
+	g++ -c tank.cpp
+
+guerrier.o: magicien.cpp magicien.hpp personnage.hpp individu.hpp
+	g++ -c guerrier.cpp
+
+medecin.o: magicien.cpp magicien.hpp personnage.hpp individu.hpp
+	g++ -c medecin.cpp
 
 personnage.o: personnage.cpp personnage.hpp individu.hpp fonctions.hpp
 	g++ -c personnage.cpp
