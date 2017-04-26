@@ -192,6 +192,8 @@ void Jeu::bouger(int x, int y)
 {
 	int xx = joueur -> getPosX() + x,
 		yy = joueur -> getPosY() + y,
+		x2 = joueur -> getPosX() + 2 * x,
+		y2 = joueur -> getPosY() + 2 * y,
 		dim = map -> getDim(),
 		choix;
 	
@@ -199,7 +201,7 @@ void Jeu::bouger(int x, int y)
 	{
 		if (map -> estAccessible(yy * dim + xx))
 			seDeplacer(x, y);
-		else if (map -> estAccessible((joueur -> getPosY() + 2 * y) * dim + (joueur -> getPosX() + 2 * x)))
+		else if (x2 < dim && y2 < dim && x2 >= 0 && y2 >= 0 && map -> estAccessible(y2 * dim + x2))
 		{
 			cout << "Vous rencontrez un obstacle, voulez vous l'enjamber ?" << endl;
 			cout << "  1) Oui" << endl;
