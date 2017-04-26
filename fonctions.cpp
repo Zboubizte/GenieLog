@@ -214,6 +214,6 @@ void purgerBuffer()
 
 void continuer()
 {
-	cout << "Appuyez sur entrée pour continuer.";
+	cout << "Appuyez sur entrée pour continuer." << endl;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }

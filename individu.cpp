@@ -22,7 +22,7 @@ void Individu::attaquer(int degats, Individu * cible) const
 
 int Individu::attaqueDeBase() const
 {
-	cout << nom << " met un coup de poing !" << endl;
+	cout << nom << " attaque !" << endl;
 	return rand() % 10 + 10;
 }
 

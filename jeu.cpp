@@ -22,6 +22,7 @@ Jeu::Jeu(int niv_difficulte = 0) : map(0), joueur(0), nbMonstres(0), difficulte(
 	cout << "  4) Médecin" << endl << endl;
 	cout << "Votre choix : ";
 	classe = saisirInt(0, 5);
+	cout << endl;
 
 	switch (classe)
 	{
@@ -55,9 +56,9 @@ Jeu::Jeu(int niv_difficulte = 0) : map(0), joueur(0), nbMonstres(0), difficulte(
 		nbMonstres = saisirInt(0, dim * dim - (dim * dim) / 4);
 		cout << endl;
 		cout << "Voulez vous..." << endl;
-		cout << "  1) Voir les monstres et les cases visitées" << endl;
-		cout << "  2) Juste les cases visitées" << endl;
-		cout << "  3) Aucun des deux" << endl << endl;
+		cout << "  1) Voir les monstres et les potions" << endl;
+		cout << "  2) Voir uniquement les cases déjà visitées" << endl;
+		cout << "  3) Ne rien voir" << endl << endl;
 		cout << "Votre choix : ";
 		difficulte = saisirInt(0, 4);
 		cout << endl;
@@ -117,6 +118,7 @@ void Jeu::combat(Monstre * adversaire)
 	bool tour = 1;
 
 	cout << "Vous entrez en combat !" << endl << endl;
+	continuer();
 
 	do
 	{
@@ -210,10 +212,18 @@ void Jeu::bouger(int x, int y)
 				seDeplacer(2 * x, 2 * y);
 		}
 		else
+		{
 			cout << "Deplacement impossible !" << endl << endl;
+			purgerBuffer();
+			continuer();
+		}
 	}
 	else
+	{
 		cout << "Deplacement impossible !" << endl << endl;
+		purgerBuffer();
+		continuer();
+	}
 }
 
 void Jeu::seDeplacer(int x, int y)
