@@ -54,6 +54,7 @@ void afficherDifficulte();
  * \return L'entier valide
  */
 int saisirInt();
+int saisirInt(int, int);
 /*!
  * \brief Saisie de string sécurisée
  *

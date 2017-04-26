@@ -23,12 +23,12 @@ Carte::~Carte()
 	}
 }
 
-void Carte::Initialiser(Monstre ** tab_monstres, int nb_monstres/*, Consommable ** tab_consommable, int nb_consommable*/)
+void Carte::Initialiser(Monstre ** tab_monstres, int nb_monstres)
 {
 	int tmp,
-		param [2] = { dim * dim / 4, nb_monstres/*, nb_consommables*/ };
+		param [3] = { dim * dim / 4, nb_monstres + 3, nb_monstres };
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < param[i]; j++)
 		{
@@ -37,18 +37,19 @@ void Carte::Initialiser(Monstre ** tab_monstres, int nb_monstres/*, Consommable 
 			if (i == 0)
 				cases[tmp] -> bloquer();
 			else if (i == 1)
+				cases[tmp] -> ajouterConsommable(new Consommable("Potion de vie", 0, 25));
+			else
 				cases[tmp] -> ajouterMonstre(tab_monstres[j]);
-			/*else
-				cases[tmp] -> ajouterConsommable(tab_consommable[i]);*/
 		}
 	}
 }
 
-void Carte::afficher_carte(int x, int y) const
+void Carte::afficher_carte(int x, int y, int dif) const
 {
-	for (int i = 0; i < dim * 2 + 3; i++)
+	cout << "+";
+	for (int i = 0; i < dim * 2 + 1; i++)
 		cout << "-";
-	cout << endl;
+	cout << "+" << endl;
 
 	for (int i = 0; i < dim; i++)
 	{
@@ -58,14 +59,15 @@ void Carte::afficher_carte(int x, int y) const
 			if (i == y && j == x)
 				cout << "O ";
 			else
-				cases[i * dim + j] -> afficher_zone();
+				cases[i * dim + j] -> afficher_zone(dif);
 		}
 		cout << "|" << endl;
 	}
 
-	for (int i = 0; i < dim * 2 + 3; i++)
+	cout << "+";
+	for (int i = 0; i < dim * 2 + 1; i++)
 		cout << "-";
-	cout << endl << endl;
+	cout << "+" << endl << endl;
 }
 
 bool Carte::contientMonstre(int x, int y) const
@@ -73,9 +75,19 @@ bool Carte::contientMonstre(int x, int y) const
 	return cases[y * dim + x] -> contientMonstre();
 }
 
+bool Carte::contientConsommable(int x, int y) const
+{
+	return cases[y * dim + x] -> contientConsommable();
+}
+
 Monstre * Carte::getMonstre(int x, int y) const
 {
 	return cases[y * dim + x] -> getMonstre();
+}
+
+Consommable * Carte::getConsommable(int x, int y)
+{
+	return cases[y * dim + x] -> getConsommable();
 }
 
 bool Carte::monstreVivant(int x, int y) const
@@ -91,4 +103,9 @@ bool Carte::estAccessible(int num_case) const
 int Carte::getDim() const
 {
 	return dim;
+}
+
+void Carte::visiterCase(int x, int y)
+{
+	cases[y * dim + x] -> setVisitee();
 }

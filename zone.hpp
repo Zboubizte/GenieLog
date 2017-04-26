@@ -24,7 +24,7 @@ class Zone
 {
 	private:
 		bool bloquee,		//!< Permet de savoir si la case est accessible (false) ou non (true)
-			 visitee;
+			 visitee;		//!< Permet de savoir si le joueur a déjà visité la case
 		Monstre * mon;		//!< Pointeur vers un éventuel Monstre
 		Consommable * obj;	//!< Pointeur vers un éventuel Consommable
 
@@ -95,7 +95,11 @@ class Zone
 		 *
 		 * Affiche un caractère different en fonction de ce qu'il se trouve dans la Zone
 		*/
-		void afficher_zone() const;
+		void afficher_zone(int) const;
+		void afficher_facile() const;
+		void afficher_normal() const;
+		void afficher_difficile() const;
+		void setVisitee();
 
 		/*!
 		 * \brief Accesseur du Monstre
@@ -104,6 +108,7 @@ class Zone
 		 * \return Un pointeur vers le Monstre
 		*/
 		Monstre * getMonstre() const;
+		Consommable * getConsommable();
 };
 
 #endif

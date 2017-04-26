@@ -7,6 +7,7 @@
  * \author Ken Bres
  */
 
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -33,7 +34,12 @@ class Consommable
 		 * \param type_consommable : Définie si l'objet rend de la vie (false) ou du mana (true)
 		 * \param valeur_consommable : Quantité rendue par l'objet
 		 */
+		Consommable();
 		Consommable(string, bool, int);
+		void afficher();
+		string getNom();
+		bool getType();
+		int getValeur();
 };
 
 #endif

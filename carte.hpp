@@ -42,7 +42,7 @@ class Carte
 		/*!
 		 * \brief Initialiseur de la carte
 		 *
-		 * Permet de placer des monstres sur la carte et de bloquer 1/4 des cases.
+		 * Permet de placer des monstres et des potions sur la carte et de bloquer 1/4 des cases.
 		 * \param tab_monstres : Pointeur sur un tableau de monstres
 		 * \param nb_monstres : Nombre de monstres dans le tableau
 		 */
@@ -50,11 +50,12 @@ class Carte
 		/*!
 		 * \brief Affiche la carte
 		 *
-		 * Appelle la fonction afficher_carte de la classe Zone sur chaque case pour afficher_carte la carte avec style. afficher_carte autre chose sur la position du joueur.
+		 * Appelle la fonction afficher_carte de la classe Zone sur chaque case pour afficher la carte avec style. Affiche autre chose sur la position du joueur.
 		 * \param x : Coordonnée en x du joueur
 		 * \param y : Coordonnée en y du joueur
+		 * \param dif : Permet d'avoir un affichage différent selon la difficulté du jeu
 		 */
-		void afficher_carte(int, int) const;
+		void afficher_carte(int, int, int) const;
 		/*!
 		 * \brief Indique si il y a un monstre sur la case (x, y)
 		 *
@@ -64,6 +65,7 @@ class Carte
 		 * \return true si il y a un monstre, false sinon
 		 */
 		bool contientMonstre(int, int) const;
+		bool contientConsommable(int, int) const;
 		/*!
 		 * \brief Renvoie le monstre d'une case (x, y)
 		 *
@@ -73,6 +75,7 @@ class Carte
 		 * \return Un pointeur sur le monstre si il y en a un, NULL sinon
 		 */
 		Monstre * getMonstre(int, int) const;
+		Consommable * getConsommable(int, int);
 		/*!
 		 * \brief Indique si le monstre sur la case (x, y) est en vie
 		 *
@@ -98,6 +101,7 @@ class Carte
 		 * \return La dimension de la carte
 		 */
 		int getDim() const;
+		void visiterCase(int, int);
 };
 
 #endif

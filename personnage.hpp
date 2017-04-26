@@ -9,6 +9,7 @@
 
 #include "individu.hpp"
 #include "fonctions.hpp"
+#include "consommable.hpp"
 
 /*!
  * \class Personnage
@@ -24,6 +25,7 @@ class Personnage : public Individu
 			manamax,	//!< Points de mana maximum
 			posx,		//!< Position en x sur la carte
 			posy;		//!< Position en y sur la carte
+		Consommable ** inventaire;	//!< Inventaire du joueur
 	
 	public:
 		/*!
@@ -39,6 +41,8 @@ class Personnage : public Individu
 		 * \param nom_personnage : Nom du personnage
 		*/
 		Personnage(string);
+
+		~Personnage();
 
 		/*!
 		 * \brief Présente le personnage
@@ -94,6 +98,12 @@ class Personnage : public Individu
 		void newPosition(int, int);
 		virtual string getSpecial() const;
 		virtual string getBasic() const;
+		void ajouterPotion(Consommable *);
+		void afficherInventaire();
+		bool inventaireVide();
+		int getNombrePotions();
+		void prendreMana(int);
+		bool prendrePotion();
 };
 
 #endif
