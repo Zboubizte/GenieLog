@@ -15,7 +15,7 @@ int menu()
 	cout << "  2) Voir les règles du jeu" << endl;
 	cout << "  3) Quitter" << endl << endl;
 	cout << "Votre choix : ";
-	choix = saisirInt(0, 3);
+	choix = saisirInt(0, 4);
 	cout << endl;
 
 	return choix;
