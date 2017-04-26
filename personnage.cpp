@@ -13,7 +13,7 @@ Personnage::Personnage() : Individu("Personnage"), posx(0), posy(0), mana(75), m
 	for (int i = 0; i < 10; i++)
 		inventaire[i] = 0;
 
-	inventaire[0] = new Consommable("Potion de vie", 0, 25);
+	inventaire[0] = creerPotionRandom();
 }
 
 Personnage::Personnage(string nom_personnage) : Individu(nom_personnage), posx(0), posy(0), mana(75), manamax(75), inventaire(0)
@@ -23,7 +23,7 @@ Personnage::Personnage(string nom_personnage) : Individu(nom_personnage), posx(0
 	for (int i = 0; i < 10; i++)
 		inventaire[i] = 0;
 
-	inventaire[0] = new Consommable("Potion de vie", 0, 25);
+	inventaire[0] = creerPotionRandom();
 }
 
 Personnage::~Personnage()

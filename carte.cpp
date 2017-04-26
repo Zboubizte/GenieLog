@@ -37,7 +37,7 @@ void Carte::Initialiser(Monstre ** tab_monstres, int nb_monstres)
 			if (i == 0)
 				cases[tmp] -> bloquer();
 			else if (i == 1)
-				cases[tmp] -> ajouterConsommable(new Consommable("Potion de vie", 0, 25));
+				cases[tmp] -> ajouterConsommable(creerPotionRandom());
 			else
 				cases[tmp] -> ajouterMonstre(tab_monstres[j]);
 		}

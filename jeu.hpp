@@ -7,6 +7,7 @@
  * \author Ken Bres
  */
 
+#include "fonctions.hpp"
 #include "carte.hpp"
 #include "magicien.hpp"
 #include "tank.hpp"

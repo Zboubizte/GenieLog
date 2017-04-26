@@ -7,8 +7,7 @@
  * \author Ken Bres
  */
 
-#include <stdlib.h> 
-#include <time.h>
+#include "fonctions.hpp"
 #include "zone.hpp"
 
 /*!

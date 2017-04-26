@@ -18,6 +18,8 @@
 
 class Monstre : public Individu
 {
+	private:
+		float degats;	//!< Multiplicateur de dégats
 	public:
 		/*!
 		 * \brief Constructeur par défaut des monstres
@@ -30,8 +32,10 @@ class Monstre : public Individu
 		 *
 		 * Crée un monstre au nom personnalisé.
 		 * \param nom_monstre : le nom du monstre
+		 * \param pv_monstre : les points de vie du monstre
+		 * \param : le multiplicateur de dégats du monstre
 		 */
-		Monstre(string);
+		Monstre(string, int, float);
 
 		/*!
 		 * \brief Permet au monstre d'attaquer une cible

@@ -6,11 +6,15 @@
 
 #include "monstre.hpp"
 
-Monstre::Monstre() : Individu("Grand méchant loup")
-{}
+Monstre::Monstre() : Individu("Sanglier sauvage"), degats(0.75)
+{
+	pv = pvmax = 40;
+}
 
-Monstre::Monstre(string nom_monstre) : Individu(nom_monstre)
-{}
+Monstre::Monstre(string nom_monstre, int pv_monstre, float degats_monstre) : Individu(nom_monstre), degats(degats_monstre)
+{
+	pv = pvmax = pv_monstre;
+}
 
 void Monstre::attaquer(Individu * cible)
 {

@@ -43,7 +43,7 @@ Jeu::Jeu(int niv_difficulte = 0) : map(0), joueur(0), nbMonstres(0), difficulte(
 	}
 
 	dim = 10;
-	nbMonstres = 4;
+	nbMonstres = 12;
 
 	if (difficulte == 4)
 	{
@@ -66,7 +66,7 @@ Jeu::Jeu(int niv_difficulte = 0) : map(0), joueur(0), nbMonstres(0), difficulte(
 	tabMonstre = new Monstre * [nbMonstres];
 
 	for (int i = 0; i < nbMonstres; i++)
-		tabMonstre[i] = new Monstre();
+		tabMonstre[i] = creerMonstreRandom();
 
 	map = new Carte(dim);
 	map -> Initialiser(tabMonstre, nbMonstres);

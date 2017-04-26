@@ -81,7 +81,7 @@ void afficherRegles()
 	cout << "    Y : Un arbre" << endl;
 	cout << "    X : Un monstre" << endl;
 	cout << "    / : Un monstre mort" << endl;
-	cout << "Amusez-vous bien !" << endl << endl;
+	cout << "    + : Une potion" << endl << endl;
 }
 
 void afficherDifficulte()
@@ -90,6 +90,76 @@ void afficherDifficulte()
 	cout << "- Normal : Vous ne savez pas ou sont les monstres." << endl;
 	cout << "- Difficile : Vous ne savez rien." << endl;
 	cout << "- Personnalisée : Vous choisissez tout" << endl << endl;
+}
+
+Consommable * creerPotionRandom()
+{
+	ifstream fichier("./potions.data", ios::in);
+
+	string potion[3] = { "Potion de vie", "0", "50" };
+
+	if (fichier)
+	{
+		int nb_lignes = 0,
+		tmp = 0;
+		
+		while(fichier.ignore(numeric_limits<int>::max(), '\n'))
+			nb_lignes++;
+
+		fichier.clear();
+		fichier.seekg(0, ios::beg);
+
+		int num_ligne = rand() % nb_lignes;
+
+		while (tmp != num_ligne)
+		{
+			fichier.ignore(numeric_limits<int>::max(), '\n');
+			tmp++;
+		}
+
+		getline(fichier, potion[0], ',');
+		getline(fichier, potion[1], ',');
+		getline(fichier, potion[2]);
+
+		fichier.close();
+	}
+
+	return new Consommable(potion[0], atoi(potion[1].c_str()), atoi(potion[2].c_str()));
+}
+
+Monstre * creerMonstreRandom()
+{
+	ifstream fichier("./monstres.data", ios::in);
+
+	string monstre[3] = {"Sanglier sauvage", "40", "0.75"};
+
+	if (fichier)
+	{
+		int nb_lignes = 0,
+		tmp = 0;
+		
+		while(fichier.ignore(numeric_limits<int>::max(), '\n'))
+			nb_lignes++;
+
+		fichier.clear();
+		fichier.seekg(0, ios::beg);
+
+		int num_ligne = rand() % nb_lignes;
+
+		while (tmp != num_ligne)
+		{
+			fichier.ignore(numeric_limits<int>::max(), '\n');
+			tmp++;
+		}
+
+		getline(fichier, monstre[0], ',');
+		getline(fichier, monstre[1], ',');
+		getline(fichier, monstre[2]);
+
+		fichier.close();
+	}
+
+	return new Monstre(monstre[0], atoi(monstre[1].c_str()), atof(monstre[2].c_str()));
 }
 
 int saisirInt()
@@ -112,8 +182,8 @@ int saisirInt(int min, int max)
 {
 	int tmp = 1;
 
-	/*if (min == -1 && max == 1)
-		tmp = 0;*/
+	if (min == -1 && max == 1)
+		tmp = 0;
 
 	do
 	{

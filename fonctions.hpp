@@ -9,8 +9,13 @@
  * \author Ken Bres
  */
 
+#include <fstream>
 #include <iostream>
 #include <limits>
+#include <cstdlib>
+#include <ctime>
+#include "consommable.hpp"
+#include "monstre.hpp"
 using namespace std;
 
 /*!
@@ -46,6 +51,8 @@ void afficherRegles();
  * Affiche de façon détaillée des informations sur les differentes difficultés du jeu.
  */
 void afficherDifficulte();
+Consommable * creerPotionRandom();
+Monstre * creerMonstreRandom();
 
 /*!
  * \brief Saisie d'entier sécurisée
