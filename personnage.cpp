@@ -140,7 +140,6 @@ void Personnage::ajouterPotion(Consommable * potion)
 		{
 			inventaire[i] = potion;
 			cout << nom << " a ramassé une " << potion -> getNom() << " !" << endl << endl;
-			purgerBuffer();
 			continuer();
 			return;
 		}
@@ -229,7 +228,6 @@ bool Personnage::prendrePotion()
 					soigner(inventaire[choix] -> getValeur());
 				}
 			}
-			purgerBuffer();
 			continuer();
 		}
 	} while (!ok);

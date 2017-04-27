@@ -45,7 +45,7 @@ class Carte
 		 * \param tab_monstres : Pointeur sur un tableau de monstres
 		 * \param nb_monstres : Nombre de monstres dans le tableau
 		 */
-		void Initialiser(Monstre **, int);
+		void initialiser(Monstre **, int);
 		/*!
 		 * \brief Affiche la carte
 		 *

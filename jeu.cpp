@@ -6,24 +6,8 @@
 
 #include "jeu.hpp"
 
-Jeu::Jeu(int niv_difficulte = 0) : map(0), joueur(0), nbMonstres(0), difficulte(niv_difficulte), tabMonstre(0)
+Jeu::Jeu(string nom = "Joueur", int niv_difficulte = 2, int classe = 3, int dim = 10, int nombre_monstres = 12) : map(0), joueur(0), nbMonstres(nombre_monstres), difficulte(niv_difficulte), tabMonstre(0)
 {
-	string nom;
-	int dim, classe;
-	
-	cout << "Bienvenue jeune aventurier, quel est votre nom ? ";
-	nom = saisirString();
-	cout << endl;
-
-	cout << "Quelle classe voulez-vous incarner ?" << endl;
-	cout << "  1) Magicien" << endl;
-	cout << "  2) Tank" << endl;
-	cout << "  3) Guerrier" << endl;
-	cout << "  4) Médecin" << endl << endl;
-	cout << "Votre choix : ";
-	classe = saisirInt(0, 5);
-	cout << endl;
-
 	switch (classe)
 	{
 		case 1:
@@ -43,34 +27,13 @@ Jeu::Jeu(int niv_difficulte = 0) : map(0), joueur(0), nbMonstres(0), difficulte(
 			break;
 	}
 
-	dim = 10;
-	nbMonstres = 12;
-
-	if (difficulte == 4)
-	{
-		cout << "Taille de la carte (dim * dim) (2 - 30) ?" << endl;
-		cout << "  dim = ";
-		dim = saisirInt(1, 31);
-		cout << endl;
-		cout << "Nombre de monstres (1 - " << dim * dim - (dim * dim) / 4 - 1 << ") ? ";
-		nbMonstres = saisirInt(0, dim * dim - (dim * dim) / 4);
-		cout << endl;
-		cout << "Voulez vous..." << endl;
-		cout << "  1) Voir les monstres et les potions" << endl;
-		cout << "  2) Voir uniquement les cases déjà visitées" << endl;
-		cout << "  3) Ne rien voir" << endl << endl;
-		cout << "Votre choix : ";
-		difficulte = saisirInt(0, 4);
-		cout << endl;
-	}
-
 	tabMonstre = new Monstre * [nbMonstres];
 
 	for (int i = 0; i < nbMonstres; i++)
 		tabMonstre[i] = creerMonstreRandom();
 
 	map = new Carte(dim);
-	map -> Initialiser(tabMonstre, nbMonstres);
+	map -> initialiser(tabMonstre, nbMonstres);
 }
 
 Jeu::~Jeu()
@@ -82,7 +45,8 @@ Jeu::~Jeu()
 	if (tabMonstre)
 	{
 		for (int i = 0; i < nbMonstres; i++)
-			delete tabMonstre[i];
+			if (tabMonstre[i])
+				delete tabMonstre[i];
 		delete [] tabMonstre;
 	}
 }
@@ -111,13 +75,16 @@ void Jeu::jouer()
 		else
 			choixDeplacement(x, y);
 	} while (resteMonstre() && joueur -> estVivant());
+
+	if (joueur -> estVivant())
+		cout << "Bravo, vous êtes venu à bout de tous les monstres et par conséquent avez gagné !" << endl << endl;
 }
 
 void Jeu::combat(Monstre * adversaire)
 {
 	bool tour = 1;
 
-	cout << "Vous entrez en combat !" << endl << endl;
+	cout << "Vous entrez en combat avec un " << adversaire -> getNom() << " !" << endl << endl;
 	continuer();
 
 	do
@@ -130,7 +97,6 @@ void Jeu::combat(Monstre * adversaire)
 		if (tour)
 		{
 			joueur -> choixAttaque(adversaire);
-			purgerBuffer();
 			continuer();
 		}
 		else
@@ -197,33 +163,23 @@ void Jeu::bouger(int x, int y)
 		dim = map -> getDim(),
 		choix;
 	
-	if (xx < dim && yy < dim && xx >= 0 && yy >= 0)
+	if (xx < dim && yy < dim && xx >= 0 && yy >= 0 && map -> estAccessible(yy * dim + xx))
+		seDeplacer(x, y);
+	else if (x2 < dim && y2 < dim && x2 >= 0 && y2 >= 0 && map -> estAccessible(y2 * dim + x2))
 	{
-		if (map -> estAccessible(yy * dim + xx))
-			seDeplacer(x, y);
-		else if (x2 < dim && y2 < dim && x2 >= 0 && y2 >= 0 && map -> estAccessible(y2 * dim + x2))
-		{
-			cout << "Vous rencontrez un obstacle, voulez vous l'enjamber ?" << endl;
-			cout << "  1) Oui" << endl;
-			cout << "  2) Non" << endl << endl;
-			cout << "Votre choix : ";
-			choix = saisirInt(0, 3);
-			cout << endl;
-			
-			if (choix == 1)
-				seDeplacer(2 * x, 2 * y);
-		}
-		else
-		{
-			cout << "Deplacement impossible !" << endl << endl;
-			purgerBuffer();
-			continuer();
-		}
+		cout << "Vous rencontrez un obstacle, voulez vous l'enjamber ?" << endl;
+		cout << "  1) Oui" << endl;
+		cout << "  2) Non" << endl << endl;
+		cout << "Votre choix : ";
+		choix = saisirInt(0, 3);
+		cout << endl;
+		
+		if (choix == 1)
+			seDeplacer(2 * x, 2 * y);
 	}
 	else
 	{
-		cout << "Deplacement impossible !" << endl << endl;
-		purgerBuffer();
+		cout << "Vous ne pouvez pas aller là !" << endl << endl;
 		continuer();
 	}
 }

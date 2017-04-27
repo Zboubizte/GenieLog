@@ -31,7 +31,7 @@ int menu();
  * Utilise le choix renvoyé par menu() pour lancer le jeu, afficher les règles ou quitter. Appelle choixOptions() si le joueur veut jouer, afficherRegles() si il veut voir les règles ou quitte l'application.
  * \return Les options choisies uniquement si le joueur veut jouer
  */
-int demarrage();
+int demarrage(int *, string &);
 /*!
  * \brief Permet de choisir la difficulté du jeu
  *
@@ -53,6 +53,12 @@ void afficherRegles();
 void afficherDifficulte();
 Consommable * creerPotionRandom();
 Monstre * creerMonstreRandom();
+string choixPseudo();
+int choixClasse();
+int dimCustom();
+int monCustom(int);
+int difCustom();
+bool rejouer();
 
 /*!
  * \brief Saisie d'entier sécurisée

@@ -18,15 +18,16 @@ Carte::~Carte()
 	if (cases)
 	{
 		for (int i = 0; i < dim * dim; i++)
-			delete cases[i];
+			if (cases[i])
+				delete cases[i];
 		delete [] cases;
 	}
 }
 
-void Carte::Initialiser(Monstre ** tab_monstres, int nb_monstres)
+void Carte::initialiser(Monstre ** tab_monstres, int nb_monstres)
 {
 	int tmp,
-		param [3] = { dim * dim / 4, nb_monstres + 3, nb_monstres };
+		param [3] = { dim * dim / 4, nb_monstres, nb_monstres };
 
 	for (int i = 0; i < 3; i++)
 	{

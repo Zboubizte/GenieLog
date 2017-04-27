@@ -6,6 +6,71 @@
 
 #include "fonctions.hpp"
 
+string choixPseudo()
+{
+	string nom;
+	
+	cout << "Bienvenue jeune aventurier, quel est votre nom ? ";
+	nom = saisirString();
+	cout << endl;
+
+	return nom;
+}
+
+int choixClasse()
+{
+	int classe;
+
+	cout << "Quelle classe voulez-vous incarner ?" << endl;
+	cout << "  1) Magicien" << endl;
+	cout << "  2) Tank" << endl;
+	cout << "  3) Guerrier" << endl;
+	cout << "  4) Médecin" << endl << endl;
+	cout << "Votre choix : ";
+	classe = saisirInt(0, 5);
+	cout << endl;
+
+	return classe;
+}
+
+int dimCustom()
+{
+	int dim;
+
+	cout << "Taille de la carte (dim * dim) (2 - 30) ?" << endl;
+	cout << "  dim = ";
+	dim = saisirInt(1, 31);
+	cout << endl;
+
+	return dim;
+}
+
+int monCustom(int dim)
+{
+	int nbMonstres;
+
+	cout << "Nombre de monstres (1 - " << dim * dim - (dim * dim) / 4 - 1 << ") ? ";
+	nbMonstres = saisirInt(0, dim * dim - (dim * dim) / 4);
+	cout << endl;
+
+	return nbMonstres;
+}
+
+int difCustom()
+{
+	int dif;
+
+	cout << "Voulez vous..." << endl;
+	cout << "  1) Voir les monstres et les potions" << endl;
+	cout << "  2) Voir uniquement les cases déjà visitées" << endl;
+	cout << "  3) Ne rien voir" << endl << endl;
+	cout << "Votre choix : ";
+	dif = saisirInt(0, 4);
+	cout << endl;
+
+	return dif;
+}
+
 int menu()
 {
 	int choix;
@@ -21,18 +86,30 @@ int menu()
 	return choix;
 }
 
-int demarrage()
+int demarrage(int * param, string & nom)
 {
-	int dif;
+	param[2] = 10;
+	param[3] = 12;
 
 	do
 	{
 		switch (menu())
 		{
 			case 1:
-				dif = choixOptions();
-				if (dif != 6)
-					return dif;
+				param[0] = choixOptions();
+				if (param[0] != 6)
+				{
+					nom = choixPseudo();
+					param[1] = choixClasse();
+
+					if (param[0] == 4)
+					{
+						param[2] = dimCustom();
+						param[3] = monCustom(param[2]);
+						param[0] = difCustom();
+					}
+					return 1;
+				}
 				break;
 
 			case 2:
@@ -90,6 +167,19 @@ void afficherDifficulte()
 	cout << "- Normal : Vous ne savez pas ou sont les monstres." << endl;
 	cout << "- Difficile : Vous ne savez rien." << endl;
 	cout << "- Personnalisée : Vous choisissez tout" << endl << endl;
+}
+
+bool rejouer()
+{
+	int tmp;
+
+	cout << "Voulez vous rejouer ?" << endl;
+	cout << "  1) Oui" << endl;
+	cout << "  2) Non" << endl << endl;
+	cout << "Votre choix : ";
+	tmp = saisirInt(0, 3);
+
+	return tmp == 1 ? 1 : 0;
 }
 
 Consommable * creerPotionRandom()
@@ -164,18 +254,17 @@ Monstre * creerMonstreRandom()
 
 int saisirInt()
 {
-	int n;
+	string s = " ";
+	int tmp;
 
-	while (!(cin >> n))
+	do
 	{
-		if (cin.fail())
-		{
-			cout << "Erreur, veuillez entrer un chiffre : ";
-			purgerBuffer();
-		}
-	}
+		if (s == "")
+			cout << "Veuillez entrer au moins un caractère : ";
+		getline(cin, s);
+	} while (s == "");
 
-	return n;
+	return atoi(s.c_str());
 }
 
 int saisirInt(int min, int max)
@@ -198,10 +287,14 @@ int saisirInt(int min, int max)
 
 string saisirString()
 {
-	string s;
+	string s = " ";
 
-	purgerBuffer();
-	getline(cin, s);
+	do
+	{
+		if (s == "")
+			cout << "Veuillez entrer au moins un caractère : ";
+		getline(cin, s);
+	} while (s == "");
 
 	return s;
 }
@@ -214,6 +307,7 @@ void purgerBuffer()
 
 void continuer()
 {
-	cout << "Appuyez sur entrée pour continuer." << endl;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cout << "Appuyez sur entrée pour continuer.";
+    purgerBuffer();
+    cout << endl;
 }

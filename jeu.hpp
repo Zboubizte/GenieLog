@@ -31,13 +31,8 @@ class Jeu
 		Monstre ** tabMonstre;	//!< Pointeur vers le tableau de monstres
 	
 	public:
-		/*!
-		 * \brief Constructeur par défaut
-		 *
-		 * Demande le nom du joueur, puis utilise le niveau de difficulté passé en paramètre pour créer le jeu.
-		 * \param niv_difficulte : Niveau de difficulté récupéré dans le main
-		 */
-		Jeu(int);
+		
+		Jeu(string, int, int, int, int);
 		/*!
 		 * \brief Destructeur du jeu
 		 *

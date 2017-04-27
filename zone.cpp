@@ -11,8 +11,6 @@ Zone::Zone() : bloquee(0), mon(0), obj(0), visitee(0)
 
 Zone::~Zone()
 {
-	if (mon)
-		delete mon;
 	if (obj)
 		delete obj;
 }

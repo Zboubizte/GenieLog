@@ -9,16 +9,23 @@
 
 int main()
 {
-	cout << "Bienvenue dans The Game, le nouveau RPG à la mode !" << endl << endl;
+	cout << "Bienvenue dans The Game, un jeu développé par Ken Bres, Charles Prin Clary et Mamadou Diallo !" << endl << endl;
+	int param[4];
+	string nom;
 
-	int dif = demarrage();
+	do
+	{
+		int fin = demarrage(param, nom);
 
-	if (dif == 0)
-		return 0;
-	
-	srand(time(0));
-	Jeu game(dif);
-	game.jouer();
+		cout << "-------------" << nom << endl;
+		if (fin == 0)
+			return 0;
+
+		Jeu game(nom, param[0], param[1], param[2], param[3]);
+		game.jouer();
+
+		
+	} while(rejouer());
 
 	return 0;
 }
