@@ -4,30 +4,31 @@
  * \author Ken Bres
  */
 
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
 #include "jeu.hpp"
 #include "fonctions.hpp"
 
 int main()
 {
-	cout << "Bienvenue dans The Game, un jeu développé par Ken Bres, Charles Prin Clary et Mamadou Diallo !" << endl << endl;
+	std::cout << "Bienvenue dans The Game, un jeu développé par Ken Bres, Charles Prin Clary et Mamadou Diallo !" << std::endl << std::endl;
 	int param[4];
-	string nom;
+	std::string nom;
 
 	srand(time(0));
 
 	do
 	{
-		int fin = demarrage(param, nom);
-
-		cout << "-------------" << nom << endl;
-		if (fin == 0)
+		if (!demarrage(param, nom))
 			return 0;
 
 		Jeu game(nom, param[0], param[1], param[2], param[3]);
-		game.jouer();
-
-		
+		game.jouer();		
 	} while(rejouer());
 
+	std::cout << "C'est triste de vous voir partir si tôt... À la prochaine !" << std::endl;
 	return 0;
 }

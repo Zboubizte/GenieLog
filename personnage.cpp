@@ -6,17 +6,16 @@
 
 #include "personnage.hpp"
 
-Personnage::Personnage() : Individu("Personnage"), posx(0), posy(0), mana(75), manamax(75), inventaire(0)
-{
-	inventaire = new Consommable * [10];
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
 
-	for (int i = 0; i < 10; i++)
-		inventaire[i] = 0;
+#include "individu.hpp"
+#include "consommable.hpp"
+#include "fonctions.hpp"
 
-	inventaire[0] = creerPotionRandom();
-}
-
-Personnage::Personnage(string nom_personnage) : Individu(nom_personnage), posx(0), posy(0), mana(75), manamax(75), inventaire(0)
+Personnage::Personnage(std::string nom_personnage = "Personnage") : Individu(nom_personnage), posx(0), posy(0), mana(75), manamax(75), inventaire(0)
 {
 	inventaire = new Consommable * [10];
 
@@ -37,10 +36,11 @@ Personnage::~Personnage()
 	}
 }
 
+
 void Personnage::presenter() const
 {
 	Individu::presenter();
-	cout << "  - [" << mana << "/" << manamax << "] points de mana" << endl;
+	std::cout << "  - [" << mana << "/" << manamax << "] points de mana" << std::endl;
 }
 
 void Personnage::choixAttaque(Individu * cible)
@@ -52,14 +52,14 @@ void Personnage::choixAttaque(Individu * cible)
 	{
 		attaqueReussie = 1;
 
-		cout << "Que faire :" << endl;
-		cout << "  1) " << getBasic() << endl;
-		cout << "  2) " << getSpecial() << " (-15 mana)" << endl;
-		cout << "  3) Tout ou rien (-50 à 50)" << endl;
-		cout << "  4) Voir l'inventaire" << endl << endl;
-		cout << "Votre choix : ";
+		std::cout << "Que faire :" << std::endl;
+		std::cout << "  1) " << getBasic() << std::endl;
+		std::cout << "  2) " << getSpecial() << " (-15 mana)" << std::endl;
+		std::cout << "  3) Tout ou rien (-50 à 50)" << std::endl;
+		std::cout << "  4) Voir l'inventaire" << std::endl << std::endl;
+		std::cout << "Votre choix : ";
 		choix = saisirInt(0, 5);
-		cout << endl;
+		std::cout << std::endl;
 
 		switch (choix)
 		{
@@ -74,7 +74,7 @@ void Personnage::choixAttaque(Individu * cible)
 				}
 				else
 				{
-					cout << "Pas assez de mana !" << endl << endl;
+					std::cout << "Pas assez de mana !" << std::endl << std::endl;
 					attaqueReussie = 0;
 				}
 				break;
@@ -90,31 +90,21 @@ void Personnage::choixAttaque(Individu * cible)
 
 int Personnage::attaqueDeBase() const
 {
-	cout << nom << " effectue une attaque de base !" << endl;
-	return rand() % 5 + 10;
+	std::cout << nom << " effectue une attaque de base !" << std::endl;
+	return random(10, 15);
 }
 	
 
 int Personnage::attaqueSpeciale()
 {
-	cout << nom << " effectue une attaque spéciale !" << endl;
-	return rand() % 5 + 20;
+	std::cout << nom << " effectue une attaque spéciale !" << std::endl;
+	return random(20, 25);
 }
 
 int Personnage::attaqueRandom() const
 {
-	cout << getNom() << " tente le tout pour le tout !" << endl;
-	return rand() % 100 - 50;
-}
-
-int Personnage::getPosX() const
-{
-	return posx;
-}
-
-int Personnage::getPosY() const
-{
-	return posy;
+	std::cout << getNom() << " tente le tout pour le tout !" << std::endl;
+	return random(-50, 50);
 }
 
 void Personnage::newPosition(int x, int y)
@@ -123,28 +113,18 @@ void Personnage::newPosition(int x, int y)
 	posy += y;
 }
 
-string Personnage::getSpecial() const
-{
-	return "Attaque spéciale (20-25)";
-}
-
-string Personnage::getBasic() const
-{
-	return "Attaque de base (10-15)";
-}
-
 void Personnage::ajouterPotion(Consommable * potion)
 {
 	for (int i = 0; i < 10; i++)
 		if (!inventaire[i])
 		{
 			inventaire[i] = potion;
-			cout << nom << " a ramassé une " << potion -> getNom() << " !" << endl << endl;
+			std::cout << nom << " a ramassé une " << potion -> getNom() << " !" << std::endl << std::endl;
 			continuer();
 			return;
 		}
 
-	cout << "Il n'y a plus de place dans l'inventaire !" << endl << endl;
+	std::cout << "Il n'y a plus de place dans l'inventaire !" << std::endl << std::endl;
 }
 
 void Personnage::prendreMana(int nbrMana)
@@ -157,18 +137,18 @@ void Personnage::prendreMana(int nbrMana)
 
 void Personnage::afficherInventaire()
 {
-	cout << "Inventaire: " << endl;
+	std::cout << "Inventaire: " << std::endl;
 
 	if (!inventaireVide())
 		for(int i = 0; i < 10; i++)
 			if (inventaire[i])
 			{
-				cout << "  " << i + 1 << ") ";
+				std::cout << "  " << i + 1 << ") ";
 				inventaire[i] -> afficher();
-				cout << endl;
+				std::cout << std::endl;
 			}
 	
-	cout << "  0) Retour au jeu" << endl << endl;
+	std::cout << "  0) Retour au jeu" << std::endl << std::endl;
 }
 
 bool Personnage::inventaireVide()
@@ -177,8 +157,76 @@ bool Personnage::inventaireVide()
 		if (inventaire[i])
 			return 0;
 
-	cout << "  Votre inventaire est vide !" << endl;
+	std::cout << "  Votre inventaire est vide !" << std::endl;
 	return 1;
+}
+
+bool Personnage::prendrePotion()	
+{
+	int choix;
+	bool ok = 0;
+
+	afficherInventaire();
+
+	std::cout << "Que choisissez-vous ?" << std::endl;
+	do
+	{
+		std::cout << "Votre choix : ";
+		choix = saisirInt(-1, 11);
+		std::cout << std::endl;
+
+		if (choix == 0)
+			return 0;
+		else
+		{
+			choix--;
+			if (inventaire[choix])
+			{
+				ok = 1;
+
+				std::cout << nom << " consomme une " << inventaire[choix] -> getNom() << " et récupère " << inventaire[choix] -> getValeur();
+
+				if (inventaire[choix] -> getType())
+				{
+					std::cout << " points de mana !" << std::endl;
+					prendreMana(inventaire[choix] -> getValeur());
+				}
+				else
+				{
+					std::cout << " points de vie !" << std::endl;
+					soigner(inventaire[choix] -> getValeur());
+				}
+				continuer();
+			}
+			else
+				std::cout << "Il n'y a pas de potion à cet emplacement !" << std::endl;
+		}
+	} while (!ok);
+
+	delete inventaire[choix];
+	inventaire[choix] = 0;
+
+	return 1;
+}
+
+int Personnage::getPosX() const
+{
+	return posx;
+}
+
+int Personnage::getPosY() const
+{
+	return posy;
+}
+
+std::string Personnage::getSpecial() const
+{
+	return "Attaque spéciale (20-25)";
+}
+
+std::string Personnage::getBasic() const
+{
+	return "Attaque de base (10-15)";
 }
 
 int Personnage::getNombrePotions()
@@ -190,50 +238,4 @@ int Personnage::getNombrePotions()
 			tmp++;
 
 	return tmp;
-}
-
-bool Personnage::prendrePotion()	
-{
-	int choix;
-	bool ok = 0;
-
-	afficherInventaire();
-
-	cout << "Que choisissez-vous ?" << endl;
-	do
-	{
-		cout << "Votre choix : ";
-		choix = saisirInt(-1, getNombrePotions() + 1);
-		cout << endl;
-
-		if (choix == 0)
-			return 0;
-		else
-		{
-			choix--;
-			if (inventaire[choix])
-			{
-				ok = 1;
-
-				cout << nom << " consomme une " << inventaire[choix] -> getNom() << " et récupère " << inventaire[choix] -> getValeur();
-
-				if (inventaire[choix] -> getType())
-				{
-					cout << " points de mana !" << endl;
-					prendreMana(inventaire[choix] -> getValeur());
-				}
-				else
-				{
-					cout << " points de vie !" << endl;
-					soigner(inventaire[choix] -> getValeur());
-				}
-			}
-			continuer();
-		}
-	} while (!ok);
-
-	delete inventaire[choix];
-	inventaire[choix] = 0;
-
-	return 1;
 }

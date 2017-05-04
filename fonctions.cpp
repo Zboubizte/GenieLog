@@ -6,87 +6,17 @@
 
 #include "fonctions.hpp"
 
-string choixPseudo()
-{
-	string nom;
-	
-	cout << "Bienvenue jeune aventurier, quel est votre nom ? ";
-	nom = saisirString();
-	cout << endl;
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <limits>
+#include <cstdlib>
+#include <ctime>
 
-	return nom;
-}
+#include "consommable.hpp"
+#include "monstre.hpp"
 
-int choixClasse()
-{
-	int classe;
-
-	cout << "Quelle classe voulez-vous incarner ?" << endl;
-	cout << "  1) Magicien" << endl;
-	cout << "  2) Tank" << endl;
-	cout << "  3) Guerrier" << endl;
-	cout << "  4) Médecin" << endl << endl;
-	cout << "Votre choix : ";
-	classe = saisirInt(0, 5);
-	cout << endl;
-
-	return classe;
-}
-
-int dimCustom()
-{
-	int dim;
-
-	cout << "Taille de la carte (dim * dim) (2 - 30) ?" << endl;
-	cout << "  dim = ";
-	dim = saisirInt(1, 31);
-	cout << endl;
-
-	return dim;
-}
-
-int monCustom(int dim)
-{
-	int nbMonstres;
-
-	cout << "Nombre de monstres (1 - " << dim * dim - (dim * dim) / 4 - 1 << ") ? ";
-	nbMonstres = saisirInt(0, dim * dim - (dim * dim) / 4);
-	cout << endl;
-
-	return nbMonstres;
-}
-
-int difCustom()
-{
-	int dif;
-
-	cout << "Voulez vous..." << endl;
-	cout << "  1) Voir les monstres et les potions" << endl;
-	cout << "  2) Voir uniquement les cases déjà visitées" << endl;
-	cout << "  3) Ne rien voir" << endl << endl;
-	cout << "Votre choix : ";
-	dif = saisirInt(0, 4);
-	cout << endl;
-
-	return dif;
-}
-
-int menu()
-{
-	int choix;
-
-	cout << "Que voulez-vous faire ?" << endl;
-	cout << "  1) Jouer !" << endl;
-	cout << "  2) Voir les règles du jeu" << endl;
-	cout << "  3) Quitter" << endl << endl;
-	cout << "Votre choix : ";
-	choix = saisirInt(0, 4);
-	cout << endl;
-
-	return choix;
-}
-
-int demarrage(int * param, string & nom)
+bool demarrage(int * param, std::string & nom)
 {
 	param[2] = 10;
 	param[3] = 12;
@@ -117,10 +47,89 @@ int demarrage(int * param, string & nom)
 				break;
 
 			case 3:
-				cout << "C'est triste de vous voir partir si tôt... À la prochaine !" << endl;
 				return 0;
 		}
 	} while (1);
+}
+
+int menu()
+{
+	int choix;
+
+	std::cout << "Que voulez-vous faire ?" << std::endl;
+	std::cout << "  1) Jouer !" << std::endl;
+	std::cout << "  2) Voir les règles du jeu" << std::endl;
+	std::cout << "  3) Quitter" << std::endl << std::endl;
+	std::cout << "Votre choix : ";
+	choix = saisirInt(0, 4);
+	std::cout << std::endl;
+
+	return choix;
+}
+
+std::string choixPseudo()
+{
+	std::string nom;
+	
+	std::cout << "Bienvenue jeune aventurier, quel est votre nom ? ";
+	nom = saisirString();
+	std::cout << std::endl;
+
+	return nom;
+}
+
+int choixClasse()
+{
+	int classe;
+
+	std::cout << "Quelle classe voulez-vous incarner ?" << std::endl;
+	std::cout << "  1) Magicien" << std::endl;
+	std::cout << "  2) Tank" << std::endl;
+	std::cout << "  3) Guerrier" << std::endl;
+	std::cout << "  4) Médecin" << std::endl << std::endl;
+	std::cout << "Votre choix : ";
+	classe = saisirInt(0, 5);
+	std::cout << std::endl;
+
+	return classe;
+}
+
+int dimCustom()
+{
+	int dim;
+
+	std::cout << "Taille de la carte (dim * dim) (2 - 30) ?" << std::endl;
+	std::cout << "  dim = ";
+	dim = saisirInt(1, 31);
+	std::cout << std::endl;
+
+	return dim;
+}
+
+int monCustom(int dim)
+{
+	int nbMonstres;
+
+	std::cout << "Nombre de monstres (1 - " << dim * dim - (dim * dim) / 4 - 1 << ") ? ";
+	nbMonstres = saisirInt(0, dim * dim - (dim * dim) / 4);
+	std::cout << std::endl;
+
+	return nbMonstres;
+}
+
+int difCustom()
+{
+	int dif;
+
+	std::cout << "Voulez vous..." << std::endl;
+	std::cout << "  1) Voir les monstres, les potions et les cases bloquées" << std::endl;
+	std::cout << "  2) Voir les cases déjà visitées et les cases bloquées" << std::endl;
+	std::cout << "  3) Ne rien voir" << std::endl << std::endl;
+	std::cout << "Votre choix : ";
+	dif = saisirInt(0, 4);
+	std::cout << std::endl;
+
+	return dif;
 }
 
 int choixOptions()
@@ -129,16 +138,16 @@ int choixOptions()
 
 	do
 	{
-		cout << "Choississez la difficulté :" << endl;
-		cout << "  1) Facile" << endl;
-		cout << "  2) Normale" << endl;
-		cout << "  3) Difficile" << endl;
-		cout << "  4) Personnalisée" << endl;
-		cout << "  5) Info sur les difficultés" << endl;
-		cout << "  6) Retourner au menu" << endl << endl;
-		cout << "Votre choix : ";
+		std::cout << "Choississez la difficulté :" << std::endl;
+		std::cout << "  1) Facile" << std::endl;
+		std::cout << "  2) Normale" << std::endl;
+		std::cout << "  3) Difficile" << std::endl;
+		std::cout << "  4) Personnalisée" << std::endl;
+		std::cout << "  5) Info sur les difficultés" << std::endl;
+		std::cout << "  6) Retourner au menu" << std::endl << std::endl;
+		std::cout << "Votre choix : ";
 		choix = saisirInt(0, 7);
-		cout << endl;
+		std::cout << std::endl;
 
 		if (choix == 5)
 			afficherDifficulte();
@@ -149,34 +158,35 @@ int choixOptions()
 
 void afficherRegles()
 {
-	cout << "- The Game est un jeu d'aventure de type RPG." << endl;
-	cout << "- Votre personnage est lâché dans une forêt, représentée par un quadrillage. Il peut se déplacer de cases en cases. Certaines cases sont bloquées, car il y a des arbres et des points d'eau dans cette forêt. Mais votre personnage est habile et peut enjamber certains obstacles (ceux qui font une taille de 1 case)." << endl;
-	cout << "- Des monstres sont cachés un peu partout sur la carte. Lorsque vous pénétrez sur une case avec un monstre, un combat se déclanche. Les protagonistes attaquent chacun leur tour. Etant un personnage aux qualités remarquables, vous avez contrairement aux monstres, plusieurs attaques disponibles. Jouez stratégiquement ! Le combat se termine lorsque vous ou le monstre mourez." << endl;
-	cout << "- Le jeu se termine lorsque vous ou tous les monstres sont morts." << endl;
-	cout << "- Légende de la carte :" << endl;
-	cout << "    O : Votre personnage" << endl;
-	cout << "    Y : Un arbre" << endl;
-	cout << "    X : Un monstre" << endl;
-	cout << "    / : Un monstre mort" << endl;
-	cout << "    + : Une potion" << endl << endl;
+	std::cout << "- The Game est un jeu d'aventure de type RPG." << std::endl;
+	std::cout << "- Votre personnage est lâché dans une forêt, représentée par un quadrillage. Il peut se déplacer de cases en cases. Certaines cases sont bloquées, car il y a des arbres et des points d'eau dans cette forêt. Mais votre personnage est habile et peut enjamber certains obstacles (ceux qui font une taille de 1 case)." << std::endl;
+	std::cout << "- Des monstres sont cachés un peu partout sur la carte. Lorsque vous pénétrez sur une case avec un monstre, un combat se déclanche. Les protagonistes attaquent chacun leur tour. Etant un personnage aux qualités remarquables, vous avez contrairement aux monstres, plusieurs attaques disponibles. Jouez stratégiquement !" << std::endl;
+	std::cout << "- Le jeu se termine lorsque vous ou tous les monstres sont morts." << std::endl;
+	std::cout << "- Légende de la carte :" << std::endl;
+	std::cout << "    O : Votre personnage" << std::endl;
+	std::cout << "    Y : Un arbre" << std::endl;
+	std::cout << "    X : Un monstre" << std::endl;
+	std::cout << "    / : Un monstre mort" << std::endl;
+	std::cout << "    + : Une potion" << std::endl;
+	std::cout << "    _ : Une case visitée" << std::endl << std::endl;
 }
 
 void afficherDifficulte()
 {
-	cout << "- Facile : Vous savez ou sont les monstres et les cases que vous avez visitées." << endl;
-	cout << "- Normal : Vous ne savez pas ou sont les monstres." << endl;
-	cout << "- Difficile : Vous ne savez rien." << endl;
-	cout << "- Personnalisée : Vous choisissez tout" << endl << endl;
+	std::cout << "- Facile : Vous savez ou sont les monstres, les potions et quelles cases sont bloquées." << std::endl;
+	std::cout << "- Normal : Vous savez quelles cases vous avez déjà visité et les cases bloquées." << std::endl;
+	std::cout << "- Difficile : Vous ne savez rien." << std::endl;
+	std::cout << "- Personnalisée : Vous choisissez la taille de la carte, le nombre de monstres et le niveau de difficulté." << std::endl << std::endl;
 }
 
 bool rejouer()
 {
 	int tmp;
 
-	cout << "Voulez vous rejouer ?" << endl;
-	cout << "  1) Oui" << endl;
-	cout << "  2) Non" << endl << endl;
-	cout << "Votre choix : ";
+	std::cout << "Voulez vous rejouer ?" << std::endl;
+	std::cout << "  1) Oui" << std::endl;
+	std::cout << "  2) Non" << std::endl << std::endl;
+	std::cout << "Votre choix : ";
 	tmp = saisirInt(0, 3);
 
 	return tmp == 1 ? 1 : 0;
@@ -184,26 +194,26 @@ bool rejouer()
 
 Consommable * creerPotionRandom()
 {
-	ifstream fichier("./potions.data", ios::in);
+	std::ifstream fichier("./potions.data", std::ifstream::in);
 
-	string potion[3] = { "Potion de vie", "0", "50" };
+	std::string potion[3] = { "Potion de vie", "0", "50" };
 
 	if (fichier)
 	{
 		int nb_lignes = 0,
 		tmp = 0;
 		
-		while(fichier.ignore(numeric_limits<int>::max(), '\n'))
+		while(fichier.ignore(std::numeric_limits<int>::max(), '\n'))
 			nb_lignes++;
 
 		fichier.clear();
-		fichier.seekg(0, ios::beg);
+		fichier.seekg(0, std::ifstream::beg);
 
 		int num_ligne = rand() % nb_lignes;
 
 		while (tmp != num_ligne)
 		{
-			fichier.ignore(numeric_limits<int>::max(), '\n');
+			fichier.ignore(std::numeric_limits<int>::max(), '\n');
 			tmp++;
 		}
 
@@ -219,26 +229,26 @@ Consommable * creerPotionRandom()
 
 Monstre * creerMonstreRandom()
 {
-	ifstream fichier("./monstres.data", ios::in);
+	std::ifstream fichier("./monstres.data", std::ifstream::in);
 
-	string monstre[3] = {"Sanglier sauvage", "40", "0.75"};
+	std::string monstre[3] = {"Sanglier sauvage", "40", "0.75"};
 
 	if (fichier)
 	{
 		int nb_lignes = 0,
 		tmp = 0;
 		
-		while(fichier.ignore(numeric_limits<int>::max(), '\n'))
+		while(fichier.ignore(std::numeric_limits<int>::max(), '\n'))
 			nb_lignes++;
 
 		fichier.clear();
-		fichier.seekg(0, ios::beg);
+		fichier.seekg(0, std::ifstream::beg);
 
 		int num_ligne = rand() % nb_lignes;
 
 		while (tmp != num_ligne)
 		{
-			fichier.ignore(numeric_limits<int>::max(), '\n');
+			fichier.ignore(std::numeric_limits<int>::max(), '\n');
 			tmp++;
 		}
 
@@ -254,14 +264,14 @@ Monstre * creerMonstreRandom()
 
 int saisirInt()
 {
-	string s = " ";
+	std::string s = " ";
 	int tmp;
 
 	do
 	{
 		if (s == "")
-			cout << "Veuillez entrer au moins un caractère : ";
-		getline(cin, s);
+			std::cout << "Veuillez entrer au moins un caractère : ";
+		getline(std::cin, s);
 	} while (s == "");
 
 	return atoi(s.c_str());
@@ -277,7 +287,7 @@ int saisirInt(int min, int max)
 	do
 	{
 		if (!(tmp > min && tmp < max))
-			cout << "Veuillez entrer un choix valide (" << min + 1 << "-" << max - 1 << ") : ";
+			std::cout << "Veuillez entrer un choix valide (" << min + 1 << "-" << max - 1 << ") : ";
 
 		tmp = saisirInt();
 	} while (!(tmp > min && tmp < max));
@@ -285,15 +295,15 @@ int saisirInt(int min, int max)
 	return tmp;
 }
 
-string saisirString()
+std::string saisirString()
 {
-	string s = " ";
+	std::string s = " ";
 
 	do
 	{
 		if (s == "")
-			cout << "Veuillez entrer au moins un caractère : ";
-		getline(cin, s);
+			std::cout << "Veuillez entrer au moins un caractère : ";
+		getline(std::cin, s);
 	} while (s == "");
 
 	return s;
@@ -301,13 +311,18 @@ string saisirString()
 
 void purgerBuffer()
 {
-	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 void continuer()
 {
-	cout << "Appuyez sur entrée pour continuer.";
+	std::cout << "Appuyez sur entrée pour continuer.";
     purgerBuffer();
-    cout << endl;
+    std::cout << std::endl;
+}
+
+int random(int min, int max)
+{
+	return rand() % (max - min) + min;
 }

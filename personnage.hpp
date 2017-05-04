@@ -7,9 +7,11 @@
  * \author Ken Bres
  */
 
+#include <string>
+
 #include "individu.hpp"
-#include "fonctions.hpp"
-#include "consommable.hpp"
+
+class Consommable;
 
 /*!
  * \class Personnage
@@ -21,27 +23,26 @@
 class Personnage : public Individu
 {
 	protected:
-		int mana,		//!< Points de mana actuel
-			manamax,	//!< Points de mana maximum
-			posx,		//!< Position en x sur la carte
-			posy;		//!< Position en y sur la carte
+		int mana,					//!< Points de mana actuel
+			manamax,				//!< Points de mana maximum
+			posx,					//!< Position en x sur la carte
+			posy;					//!< Position en y sur la carte
 		Consommable ** inventaire;	//!< Inventaire du joueur
 	
 	public:
 		/*!
-		 * \brief Constructeur par défaut des Personnage
+		 * \brief Constructeur avec nom implicite
 		 *
-		 * Crée un "Magicien d'Oz", le place en (0, 0) et initialise son mana à 75/75.
-		*/
-		Personnage();
-		/*!
-		 * \brief Constructeur avec nom
-		 *
-		 * Crée un personnage avec un nom personnalisé, le place en (0, 0) et initialise son mana à 75/75.
+		 * Crée un personnage avec un nom personnalisé, le place en (0, 0), initialise son mana à 75/75 et lui donne une potion aléatoire dans son inventaire.
 		 * \param nom_personnage : Nom du personnage
 		*/
-		Personnage(string);
+		Personnage(std::string);
 
+		/*!
+		 * \brief Destructeur
+		 *
+		 * Détruit le pointeur sur l'inventaire
+		*/
 		~Personnage();
 
 		/*!
@@ -58,13 +59,19 @@ class Personnage : public Individu
 		*/
 		void choixAttaque(Individu *);
 		/*!
-		 * \brief Lance une boule de feu
+		 * \brief Attaque de base du personnage
 		 *
-		 * Lance une boule de feu faisant de 20 à 30 de dégats, mais coutant 15 de mana.
-		 * \return Les dégats de la boule de feu
+		 * Attaque de base du personnage, infligeant des dégats modérés.
+		 * \return Les dégats de l'attaque de base
+		*/
+		virtual int attaqueDeBase() const;
+		/*!
+		 * \brief Attaque spéciale du personnage
+		 *
+		 * Attaque spéciale du personnage, infligeant des dégats conséquents mais coutant 15 points de mana.
+		 * \return Les dégats de l'attaque spéciale
 		*/
 		virtual int attaqueSpeciale();
-		virtual int attaqueDeBase() const;
 		/*!
 		 * \brief Attaque à risque
 		 *
@@ -72,6 +79,48 @@ class Personnage : public Individu
 		 * \return Les dégats (ou soin) de l'attaque
 		*/
 		int attaqueRandom() const;
+		/*!
+		 * \brief Met à jour la position du personnage sur la carte
+		 *
+		 * Actualise les valeurs de posx et posx du personnage, lui permettant de se déplacer sur la carte.
+		 * \param x : Valeur à ajouter à la position en x (posx) du personnage sur la carte
+		 * \param y : Valeur à ajouter à la position en y (posy) du personnage sur la carte
+		*/
+		void newPosition(int, int);
+		/*!
+		 * \brief Ajoute une potion à l'inventaire
+		 *
+		 * Ajoute une potion passée en paramètre par pointeur à l'inventaire.
+		 * \param potion : Pointeur vers le Consommable à ajouteur
+		*/
+		void ajouterPotion(Consommable *);
+		/*!
+		 * \brief Affiche le contenu de l'inventaire
+		 *
+		 * Affiche le contenu de l'inventaire, si il n'est pas vide ou propose au joueur de retourner au jeu.
+		*/
+		void afficherInventaire();
+		/*!
+		 * \brief Permet de savoir si l'inventaire est vide
+		 *
+		 * Regarde chaque case du tableau de pointeur, dès qu'une case n'est pas à null, l'inventaire n'est pas vide.
+		 * return true si vide, false sinon.
+		*/
+		bool inventaireVide();
+		/*!
+		 * \brief Rend des points de mana au personnage
+		 *
+		 * Rend des points de mana sans pour autant dépasser les points de mana maximum.
+		 * \param nbrMana : points de mana à ajouter
+		 */
+		void prendreMana(int);
+		/*!
+		 * \brief Demande à l'utilisateur si il veut prendre une potion
+		 *
+		 * Affiche l'inventaire puis demande à l'utilisateur de choisir parmis les potions possédées. Supprime la potion choisie de l'inventaire.
+		 * return true si l'utilisateur prend une potion, false sinon.
+		*/
+		bool prendrePotion();
 
 		/*!
 		 * \brief Accesseur de la position en x du personnage
@@ -87,23 +136,27 @@ class Personnage : public Individu
 		 * \return La position du personnage en y
 		*/
 		int getPosY() const;
-
 		/*!
-		 * \brief Met à jour la position du personnage sur la carte
+		 * \brief Accesseur du nom de l'attaque de base du personnage
 		 *
-		 * Actualise les valeurs de posx et posx du personnage, lui permettant de se déplacer sur la carte.
-		 * \param x : Valeur à ajouter à la position en x (posx) du personnage sur la carte
-		 * \param y : Valeur à ajouter à la position en y (posy) du personnage sur la carte
+		 * Permet à d'autres classes de récupérer le nom de l'attaque de base du personnage.
+		 * \return Le nom de l'attaque suivie de ses dégats.
 		*/
-		void newPosition(int, int);
-		virtual string getSpecial() const;
-		virtual string getBasic() const;
-		void ajouterPotion(Consommable *);
-		void afficherInventaire();
-		bool inventaireVide();
+		virtual std::string getSpecial() const;
+		/*!
+		 * \brief Accesseur de la position en y du personnage
+		 *
+		 * Permet à d'autres classes de récupérer la position en y du personnage sur la carte de jeu.
+		 * \return La position du personnage en y
+		*/
+		virtual std::string getBasic() const;
+		/*!
+		 * \brief Accesseur du nombre de potions
+		 *
+		 * Permet à d'autres classes de récupérer le nombre de potions restantes dans l'inventaire du personnage.
+		 * \return Le nombre de potions restantes dans l'inventaire.
+		*/
 		int getNombrePotions();
-		void prendreMana(int);
-		bool prendrePotion();
 };
 
 #endif

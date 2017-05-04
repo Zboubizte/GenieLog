@@ -6,12 +6,16 @@
 
 #include "monstre.hpp"
 
+#include <string>
+
+#include "individu.hpp"
+
 Monstre::Monstre() : Individu("Sanglier sauvage"), degats(0.75)
 {
 	pv = pvmax = 40;
 }
 
-Monstre::Monstre(string nom_monstre, int pv_monstre, float degats_monstre) : Individu(nom_monstre), degats(degats_monstre)
+Monstre::Monstre(std::string nom_monstre, int pv_monstre, float degats_monstre) : Individu(nom_monstre), degats(degats_monstre)
 {
 	pv = pvmax = pv_monstre;
 }

@@ -7,6 +7,8 @@
  * \author Ken Bres
  */
 
+#include <string>
+
 #include "individu.hpp"
 
 /*!
@@ -35,7 +37,7 @@ class Monstre : public Individu
 		 * \param pv_monstre : les points de vie du monstre
 		 * \param : le multiplicateur de dégats du monstre
 		 */
-		Monstre(string, int, float);
+		Monstre(std::string, int, float);
 
 		/*!
 		 * \brief Permet au monstre d'attaquer une cible

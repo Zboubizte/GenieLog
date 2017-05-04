@@ -1,29 +1,38 @@
+/*!
+ * \file guerrier.cpp
+ * \brief Fonctions propre au Guerrier
+ * \author Ken Bres
+ */
+
 #include "guerrier.hpp"
 
-Guerrier::Guerrier() : Personnage("Berzerker")
-{}
+#include <iostream>
+#include <string>
 
-Guerrier::Guerrier(string nom_guerrier) : Personnage(nom_guerrier)
+#include "personnage.hpp"
+#include "fonctions.hpp"
+
+Guerrier::Guerrier(std::string nom_guerrier = "Berzerker") : Personnage(nom_guerrier)
 {}
 
 int Guerrier::attaqueDeBase() const
 {
-	cout << nom << " met un coup de tête !" << endl;
-	return rand() % 5 + 15;
+	std::cout << nom << " met un coup de tête !" << std::endl;
+	return random(15, 20);
 }
 
 int Guerrier::attaqueSpeciale() const
 {
-	cout << nom << " assène un lourd coup d'épée !" << endl;
-	return rand() % 5 + 25;
+	std::cout << nom << " assène un lourd coup d'épée !" << std::endl;
+	return random(25, 30);
 }
 
-string Guerrier::getBasic() const
+std::string Guerrier::getBasic() const
 {
 	return "Coup de tête (15-20)";
 }
 
-string Guerrier::getSpecial() const
+std::string Guerrier::getSpecial() const
 {
 	return "Coup d'épée puissant (25-30)";
 }
@@ -35,4 +44,3 @@ void Guerrier::subirDegat(int degats)
 	else
 		perdreVie(degats);
 }
-

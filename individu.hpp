@@ -7,12 +7,7 @@
  * \author Ken Bres
  */
 
-#include <iostream>
 #include <string>
-#include <cstdlib>
-#include <ctime>
-
-using namespace std;
 
 /*!
  * \class Individu
@@ -26,17 +21,17 @@ class Individu
 	protected:
 		int pv,			//!< Points de vie actuel
 			pvmax;		//!< Points de vie maximum
-		string nom;		//!< Nom de l'individu
+		std::string nom;		//!< Nom de l'individu
 		bool vivant;	//!< L'objet est-il vivant ?
 
 	public:
 		/*!
 		 * \brief Constructeur avec nom implicite
 		 *
-		 * Constructeur qui peut prendre un string pour un nom personnalisé, sinon nom = "Etre Vivant". Et initialise les points de vie à 100/100.
+		 * Constructeur qui peut prendre un std::string pour un nom personnalisé, sinon nom = "Etre Vivant". Et initialise les points de vie à 100/100.
 		 * \param nom_etre : taille (côté) de la carte à créer
 		 */
-		Individu(string);
+		Individu(std::string);
 
 		/*!
 		 * \brief Présente l'individu
@@ -94,7 +89,7 @@ class Individu
 		 * Permet à d'autres classes de récupérer le nom de l'individu.
 		 * \return Le nom de l'individu
 		 */
-		string getNom() const;
+		std::string getNom() const;
 
 		/*!
 		 * \brief Accesseur pour le booléen vivant

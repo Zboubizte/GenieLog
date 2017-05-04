@@ -6,28 +6,28 @@
 
 #include "consommable.hpp"
 
-Consommable::Consommable() : nom(0), type(0), valeur(0)
+#include <iostream>
+#include <string>
+
+Consommable::Consommable(std::string nom_consommable = "Potion de vie", bool type_consommable = 0, int valeur_consommable = 10) : nom(nom_consommable), type(type_consommable), valeur(valeur_consommable)
 {}
 
-Consommable::Consommable(string nom_consommable = "Potion de vie", bool type_consommable = 0, int valeur_consommable = 10) : nom(nom_consommable), type(type_consommable), valeur(valeur_consommable)
-{}
-
-void Consommable::afficher()
+void Consommable::afficher() const
 {
-	cout << nom << " (+" << valeur << (type ? " mana)" : " PV)");
+	std::cout << nom << " (+" << valeur << (type ? " mana)" : " PV)");
 }
 
-string Consommable::getNom()
+std::string Consommable::getNom() const
 {
 	return nom;
 }
 
-bool Consommable::getType()
+bool Consommable::getType() const
 {
 	return type;
 }
 
-int Consommable::getValeur()
+int Consommable::getValeur() const
 {
 	return valeur;
 }

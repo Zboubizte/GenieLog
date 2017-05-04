@@ -7,11 +7,8 @@
  * \author Ken Bres
  */
 
-#include <iostream>
-#include "consommable.hpp"
-#include "monstre.hpp"
-
-using namespace std;
+class Monstre;
+class Consommable;
 
 /*!
  * \class Zone
@@ -38,38 +35,36 @@ class Zone
 		/*!
 		 * \brief Destructeur
 		 *
-		 * Détruit les depux pointeurs éventuels
+		 * Détruit les deux pointeurs éventuels
 		*/
 		~Zone();
 
 		/*!
-		 * \brief Permet de savoir si il y a un monstre
+		 * \brief Sélection de l'affichage de la Zone
 		 *
-		 * Vérifie l'état du pointeur mon pour savoir si un monstre est présent sur cette Zone.
-		 * \return true si mon n'est pas NULL, false sinon
+		 * Appelle afficher_facile(), afficher_normal() ou afficher_difficile() en fonction du paramètre.
+		 * \param difficulte : niveau de difficulté choisi
 		*/
-		bool contientMonstre() const;
+		void afficher_zone(int) const;
 		/*!
-		 * \brief Permet de savoir si il y a un consommable
+		 * \brief Version facile de l'affichage
 		 *
-		 * Vérifie l'état du pointeur obj pour savoir si un consommable est présent sur cette Zone.
-		 * \return true si obj n'est pas NULL, false sinon
+		 * Affiche les monstres, les potions et les arbres.
 		*/
-		bool contientConsommable() const;
+		void afficher_facile() const;
 		/*!
-		 * \brief Vérifie si la case est accessible
+		 * \brief Version normale de l'affichage
 		 *
-		 * Vérifie si un déplacement sur cette Zone est possible en regardant l'état de bloquee.
-		 * \return L'inverse de bloquee
+		 * Affiche les arbres et les cases visitées.
 		*/
-		bool estBloquee() const;
+		void afficher_normal() const;
 		/*!
-		 * \brief Vérifie si quelque chose se trouve sur cette Zone
+		 * \brief Version difficile de l'affichage
 		 *
-		 * Regarde si la case est bloquée et qu'un monstre ou consommable se trouve dessus.
-		 * \return true si non boquéee et les deux pointeurs sont NULL, false sinon
+		 * N'affiche que les monstres morts.
 		*/
-		bool estVide() const;
+		void afficher_difficile() const;
+
 		/*!
 		 * \brief Lie un monstre la Zone
 		 *
@@ -85,22 +80,19 @@ class Zone
 		*/
 		void ajouterConsommable(Consommable *);
 		/*!
-		 * \brief Bloque une Zone
+		 * \brief Permet de savoir si il y a un monstre
 		 *
-		 * Change l'accessibilité de la Zone en passant bloquee à true.
+		 * Vérifie l'état du pointeur mon pour savoir si un monstre est présent sur cette Zone.
+		 * \return true si mon n'est pas NULL, false sinon
 		*/
-		void bloquer();
+		bool contientMonstre() const;
 		/*!
-		 * \brief Affiche le contenu de la Zone
+		 * \brief Permet de savoir si il y a un consommable
 		 *
-		 * Affiche un caractère different en fonction de ce qu'il se trouve dans la Zone
+		 * Vérifie l'état du pointeur obj pour savoir si un consommable est présent sur cette Zone.
+		 * \return true si obj n'est pas NULL, false sinon
 		*/
-		void afficher_zone(int) const;
-		void afficher_facile() const;
-		void afficher_normal() const;
-		void afficher_difficile() const;
-		void setVisitee();
-
+		bool contientConsommable() const;
 		/*!
 		 * \brief Accesseur du Monstre
 		 *
@@ -108,7 +100,39 @@ class Zone
 		 * \return Un pointeur vers le Monstre
 		*/
 		Monstre * getMonstre() const;
+		/*!
+		 * \brief Accesseur du Consommable
+		 *
+		 * Permet aux autres classes de récupérer le Consommable se trouvant dans la Zone. Cette fonction le délie de la Zone.
+		 * \return Un pointeur vers le Consommable
+		*/
 		Consommable * getConsommable();
+		/*!
+		 * \brief Vérifie si la case est accessible
+		 *
+		 * Vérifie si un déplacement sur cette Zone est possible en regardant l'état de bloquee.
+		 * \return L'inverse de bloquee
+		*/
+		bool estBloquee() const;
+		/*!
+		 * \brief Vérifie si quelque chose se trouve sur cette Zone
+		 *
+		 * Regarde si la case est bloquée et qu'un monstre ou consommable se trouve dessus.
+		 * \return true si non boquéee et les deux pointeurs sont NULL, false sinon
+		*/
+		bool estVide() const;
+		/*!
+		 * \brief Bloque une Zone
+		 *
+		 * Change l'accessibilité de la Zone en passant bloquee à true.
+		*/
+		void bloquer();
+		/*!
+		 * \brief Change le statut de visitee
+		 *
+		 * Passe visitee à true.
+		*/
+		void setVisitee();
 };
 
 #endif

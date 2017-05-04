@@ -1,33 +1,40 @@
+/*!
+ * \file tank.cpp
+ * \brief Fonctions propre au Tanks
+ * \author Ken Bres
+ */
+
 #include "tank.hpp"
 
-Tank::Tank() : Personnage("Bouclier humain")
-{
-	pv = pvmax = 130;
-}
+#include <iostream>
+#include <string>
 
-Tank::Tank(string nom_tank) : Personnage(nom_tank)
+#include "personnage.hpp"
+#include "fonctions.hpp"
+
+Tank::Tank(std::string nom_tank = "Muraille") : Personnage(nom_tank)
 {
 	pv = pvmax = 130;
 }
 
 int Tank::attaqueDeBase() const
 {
-	cout << nom << " met un coup d'épée !" << endl;
-	return rand() % 5 + 10;
+	std::cout << nom << " met un coup d'épée !" << std::endl;
+	return random(10, 15);
 }
 
 int Tank::attaqueSpeciale()
 {
-	cout << nom << " charge avec son bouclier !" << endl;
-	return rand() % 5 + 15;
+	std::cout << nom << " charge avec son bouclier !" << std::endl;
+	return random(15, 20);
 }
 
-string Tank::getBasic() const
+std::string Tank::getBasic() const
 {
 	return "Coup d'épée (10-15)";
 }
 
-string Tank::getSpecial() const
+std::string Tank::getSpecial() const
 {
 	return "Charge avec bouclier (15-20)";
 }
@@ -37,6 +44,6 @@ void Tank::subirDegat(int degats)
 	if (degats < 0)
 		soigner(-degats);
 	else
-		perdreVie(degats / 1.3);
+		perdreVie(degats * 0.6);
 }
 

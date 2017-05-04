@@ -1,33 +1,40 @@
+/*!
+ * \file magicien.cpp
+ * \brief Fonctions propre au Magicien
+ * \author Ken Bres
+ */
+
 #include "magicien.hpp"
 
-Magicien::Magicien() : Personnage("Magicien d'Oz")
-{
-	mana = manamax = 120;
-}
+#include <iostream>
+#include <string>
 
-Magicien::Magicien(string nom_magicien) : Personnage(nom_magicien)
+#include "personnage.hpp"
+#include "fonctions.hpp"
+
+Magicien::Magicien(std::string nom_magicien = "Merlin") : Personnage(nom_magicien)
 {
 	mana = manamax = 120;
 }
 
 int Magicien::attaqueDeBase() const
 {
-	cout << nom << " met un coup de baguette magique !" << endl;
-	return rand() % 10 + 5;
+	std::cout << nom << " met un coup de baguette magique !" << std::endl;
+	return random(5, 15);
 }
 
 int Magicien::attaqueSpeciale()
 {
-	cout << nom << " envoie une grosse boule de feu !" << endl;
-	return rand() % 10 + 30;
+	std::cout << nom << " envoie une grosse boule de feu !" << std::endl;
+	return random(30, 40);
 }
 
-string Magicien::getBasic() const
+std::string Magicien::getBasic() const
 {
 	return "Coup de baguette magique (5-15)";
 }
 
-string Magicien::getSpecial() const
+std::string Magicien::getSpecial() const
 {
 	return "Boule de feu (30-40)";
 }

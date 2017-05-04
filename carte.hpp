@@ -7,8 +7,9 @@
  * \author Ken Bres
  */
 
-#include "fonctions.hpp"
-#include "zone.hpp"
+class Zone;
+class Monstre;
+class Consommable;
 
 /*!
  * \class Carte
@@ -41,7 +42,7 @@ class Carte
 		/*!
 		 * \brief Initialiseur de la carte
 		 *
-		 * Permet de placer des monstres et des potions sur la carte et de bloquer 1/4 des cases.
+		 * Permet de placer des monstres et des potions sur la carte et de bloquer 1/4 des cases, le tout de façon aléatoire.
 		 * \param tab_monstres : Pointeur sur un tableau de monstres
 		 * \param nb_monstres : Nombre de monstres dans le tableau
 		 */
@@ -49,7 +50,7 @@ class Carte
 		/*!
 		 * \brief Affiche la carte
 		 *
-		 * Appelle la fonction afficher_carte de la classe Zone sur chaque case pour afficher la carte avec style. Affiche autre chose sur la position du joueur.
+		 * Appelle la fonction Zone::afficher_zone() sur chaque case pour afficher la carte avec style, selon le niveau de difficulté. Affiche autre chose sur la position du joueur.
 		 * \param x : Coordonnée en x du joueur
 		 * \param y : Coordonnée en y du joueur
 		 * \param dif : Permet d'avoir un affichage différent selon la difficulté du jeu
@@ -58,27 +59,43 @@ class Carte
 		/*!
 		 * \brief Indique si il y a un monstre sur la case (x, y)
 		 *
-		 * Appelle la fonction contientMonstre de la classe Zone sur une case (x, y).
+		 * Appelle la fonction Zone::contientMonstre() sur une case (x, y).
 		 * \param x : Coordonnée en x de la case
 		 * \param y : Coordonnée en y de la case
 		 * \return true si il y a un monstre, false sinon
 		 */
 		bool contientMonstre(int, int) const;
+		/*!
+		 * \brief Indique si il y a un consommable sur la case (x, y)
+		 *
+		 * Appelle la fonction Zone::contientConsommable() sur une case (x, y).
+		 * \param x : Coordonnée en x de la case
+		 * \param y : Coordonnée en y de la case
+		 * \return true si il y a un consommable, false sinon
+		 */
 		bool contientConsommable(int, int) const;
 		/*!
 		 * \brief Renvoie le monstre d'une case (x, y)
 		 *
-		 * Appelle la fonction getMonstre de la classe Zone sur une case (x, y).
+		 * Appelle la fonction Zone::getMonstre() sur une case (x, y).
 		 * \param x : Coordonnée en x de la case
 		 * \param y : Coordonnée en y de la case
 		 * \return Un pointeur sur le monstre si il y en a un, NULL sinon
 		 */
 		Monstre * getMonstre(int, int) const;
+		/*!
+		 * \brief Renvoie le consommable d'une case (x, y) et le délie
+		 *
+		 * Appelle la fonction Zone::getConsommable() sur une case (x, y) et le délie de la case en question.
+		 * \param x : Coordonnée en x de la case
+		 * \param y : Coordonnée en y de la case
+		 * \return Un pointeur sur le consommable si il y en a un, NULL sinon
+		 */
 		Consommable * getConsommable(int, int);
 		/*!
 		 * \brief Indique si le monstre sur la case (x, y) est en vie
 		 *
-		 * Appelle la fonction monstreVivant de la classe Zone sur une case (x, y).
+		 * Appelle la fonction Zone::monstreVivant() sur une case (x, y).
 		 * \param x : Coordonnée en x de la case
 		 * \param y : Coordonnée en y de la case
 		 * \return true si il est vivant, false sinon
@@ -100,6 +117,13 @@ class Carte
 		 * \return La dimension de la carte
 		 */
 		int getDim() const;
+		/*!
+		 * \brief Change l'état du booléen visitee sur une case (x, y)
+		 *
+		 * Appelle la fonction Zone::setVisitee() sur la case en question
+		 * \param x : Coordonnée en x de la case
+		 * \param y : Coordonnée en y de la case
+		 */
 		void visiterCase(int, int);
 };
 

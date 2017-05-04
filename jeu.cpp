@@ -6,7 +6,19 @@
 
 #include "jeu.hpp"
 
-Jeu::Jeu(string nom = "Joueur", int niv_difficulte = 2, int classe = 3, int dim = 10, int nombre_monstres = 12) : map(0), joueur(0), nbMonstres(nombre_monstres), difficulte(niv_difficulte), tabMonstre(0)
+#include <iostream>
+#include <string>
+
+#include "carte.hpp"
+#include "monstre.hpp"
+#include "personnage.hpp"
+#include "magicien.hpp"
+#include "tank.hpp"
+#include "guerrier.hpp"
+#include "medecin.hpp"
+#include "fonctions.hpp"
+
+Jeu::Jeu(std::string nom = "Joueur", int niv_difficulte = 2, int classe = 3, int dim = 10, int nombre_monstres = 12) : map(0), joueur(0), nbMonstres(nombre_monstres), difficulte(niv_difficulte), tabMonstre(0)
 {
 	switch (classe)
 	{
@@ -54,7 +66,7 @@ Jeu::~Jeu()
 void Jeu::afficher_jeu() const
 {
 	joueur -> presenter();
-	cout << endl;
+	std::cout << std::endl;
 	map -> afficher_carte(joueur -> getPosX(), joueur -> getPosY(), difficulte);
 }
 
@@ -77,22 +89,22 @@ void Jeu::jouer()
 	} while (resteMonstre() && joueur -> estVivant());
 
 	if (joueur -> estVivant())
-		cout << "Bravo, vous êtes venu à bout de tous les monstres et par conséquent avez gagné !" << endl << endl;
+		std::cout << "Bravo, vous êtes venu à bout de tous les monstres et par conséquent avez gagné !" << std::endl << std::endl;
 }
 
 void Jeu::combat(Monstre * adversaire)
 {
 	bool tour = 1;
 
-	cout << "Vous entrez en combat avec un " << adversaire -> getNom() << " !" << endl << endl;
+	std::cout << "Vous entrez en combat avec un " << adversaire -> getNom() << " !" << std::endl << std::endl;
 	continuer();
 
 	do
 	{
 		joueur -> presenter();
-		cout << endl;
+		std::cout << std::endl;
 		adversaire -> presenter();
-		cout << endl << "C'est a " << (tour ? joueur -> getNom() : adversaire -> getNom()) << " d'attaquer !" << endl << endl;
+		std::cout << std::endl << "C'est a " << (tour ? joueur -> getNom() : adversaire -> getNom()) << " d'attaquer !" << std::endl << std::endl;
 
 		if (tour)
 		{
@@ -109,7 +121,7 @@ void Jeu::combat(Monstre * adversaire)
 	} while (joueur -> estVivant() && adversaire -> estVivant());
 
 	if (!joueur -> estVivant())
-		cout << "GAME OVER, vous avez été vaincu... Vous devriez retenter votre chance !" << endl;
+		std::cout << "GAME OVER, vous avez été vaincu... Vous devriez retenter votre chance !" << std::endl;
 }
 
 bool Jeu::combatPossible(int x, int y) const
@@ -124,15 +136,15 @@ void Jeu::choixDeplacement(int x, int y)
 
 	afficher_jeu();
 
-	cout << "Ou voulez vous aller ?" << endl;
-	cout << "  1) En haut" << endl;
-	cout << "  2) A droite" << endl;
-	cout << "  3) En bas" << endl;
-	cout << "  4) A gauche" << endl;
-	cout << "  5) Voir l'inventaire" << endl << endl;
-	cout << "Votre choix : ";
+	std::cout << "Ou voulez vous aller ?" << std::endl;
+	std::cout << "  1) En haut" << std::endl;
+	std::cout << "  2) A droite" << std::endl;
+	std::cout << "  3) En bas" << std::endl;
+	std::cout << "  4) A gauche" << std::endl;
+	std::cout << "  5) Voir l'inventaire" << std::endl << std::endl;
+	std::cout << "Votre choix : ";
 	choix = saisirInt(0, 6);
-	cout << endl;
+	std::cout << std::endl;
 
 	switch (choix)
 	{
@@ -167,19 +179,19 @@ void Jeu::bouger(int x, int y)
 		seDeplacer(x, y);
 	else if (x2 < dim && y2 < dim && x2 >= 0 && y2 >= 0 && map -> estAccessible(y2 * dim + x2))
 	{
-		cout << "Vous rencontrez un obstacle, voulez vous l'enjamber ?" << endl;
-		cout << "  1) Oui" << endl;
-		cout << "  2) Non" << endl << endl;
-		cout << "Votre choix : ";
+		std::cout << "Vous rencontrez un obstacle, voulez vous l'enjamber ?" << std::endl;
+		std::cout << "  1) Oui" << std::endl;
+		std::cout << "  2) Non" << std::endl << std::endl;
+		std::cout << "Votre choix : ";
 		choix = saisirInt(0, 3);
-		cout << endl;
+		std::cout << std::endl;
 		
 		if (choix == 1)
 			seDeplacer(2 * x, 2 * y);
 	}
 	else
 	{
-		cout << "Vous ne pouvez pas aller là !" << endl << endl;
+		std::cout << "Vous ne pouvez pas aller là !" << std::endl << std::endl;
 		continuer();
 	}
 }

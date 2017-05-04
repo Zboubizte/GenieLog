@@ -6,6 +6,15 @@
 
 #include "carte.hpp"
 
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+ 
+#include "zone.hpp"
+#include "monstre.hpp"
+#include "consommable.hpp"
+#include "fonctions.hpp"
+
 Carte::Carte(int dimension = 10) : dim(dimension), cases(0)
 {
 	cases = new Zone * [dimension * dimension];
@@ -23,6 +32,7 @@ Carte::~Carte()
 		delete [] cases;
 	}
 }
+
 
 void Carte::initialiser(Monstre ** tab_monstres, int nb_monstres)
 {
@@ -47,28 +57,28 @@ void Carte::initialiser(Monstre ** tab_monstres, int nb_monstres)
 
 void Carte::afficher_carte(int x, int y, int dif) const
 {
-	cout << "+";
+	std::cout << "+";
 	for (int i = 0; i < dim * 2 + 1; i++)
-		cout << "-";
-	cout << "+" << endl;
+		std::cout << "-";
+	std::cout << "+" << std::endl;
 
 	for (int i = 0; i < dim; i++)
 	{
-		cout << "| ";
+		std::cout << "| ";
 		for (int j = 0; j < dim; j++)
 		{
 			if (i == y && j == x)
-				cout << "O ";
+				std::cout << "O ";
 			else
 				cases[i * dim + j] -> afficher_zone(dif);
 		}
-		cout << "|" << endl;
+		std::cout << "|" << std::endl;
 	}
 
-	cout << "+";
+	std::cout << "+";
 	for (int i = 0; i < dim * 2 + 1; i++)
-		cout << "-";
-	cout << "+" << endl << endl;
+		std::cout << "-";
+	std::cout << "+" << std::endl << std::endl;
 }
 
 bool Carte::contientMonstre(int x, int y) const

@@ -6,13 +6,11 @@
  * \brief Entête de Jeu
  * \author Ken Bres
  */
+#include <string>
 
-#include "fonctions.hpp"
-#include "carte.hpp"
-#include "magicien.hpp"
-#include "tank.hpp"
-#include "guerrier.hpp"
-#include "medecin.hpp"
+class Carte;
+class Monstre;
+class Personnage;
 
 /*!
  * \class Jeu
@@ -31,8 +29,17 @@ class Jeu
 		Monstre ** tabMonstre;	//!< Pointeur vers le tableau de monstres
 	
 	public:
-		
-		Jeu(string, int, int, int, int);
+		/*!
+		 * \brief Constructeur du jeu
+		 *
+		 * Crée le jeu en utilisant les paramètres fournis. Crée un nouveau Personnage particulier (Magicien, Guerrier, Tank ou Medecin), crée une nouvelle Carte en fonction de la dimension et crée un tableau de pointeurs de Monstre aléatoire.
+		 * \param nom : Nom du joueur
+		 * \param niv_difficulte : Niveau de difficulté choisi par l'utilisateur
+		 * \param classe : int correspondant à la classe choisi par l'utilisateur
+		 * \param dim : Côté (taille) de la Carte
+		 * \param nombre_monstres : Nombre de monstres à affronter
+		*/
+		Jeu(std::string, int, int, int, int);
 		/*!
 		 * \brief Destructeur du jeu
 		 *

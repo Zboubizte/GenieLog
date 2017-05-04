@@ -6,13 +6,18 @@
 
 #include "individu.hpp"
 
-Individu::Individu(string nom_individu = "Etre Vivant") : nom(nom_individu), pv(100), pvmax(100), vivant(1)
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+
+Individu::Individu(std::string nom_individu = "Etre Vivant") : nom(nom_individu), pv(100), pvmax(100), vivant(1)
 {}
 
 void Individu::presenter() const
 {
-	cout << nom << " :" << endl;
-	cout << "  - [" << pv << "/" << pvmax << "] points de vie" << endl;
+	std::cout << nom << " :" << std::endl;
+	std::cout << "  - [" << pv << "/" << pvmax << "] points de vie" << std::endl;
 }
 
 void Individu::attaquer(int degats, Individu * cible) const
@@ -22,7 +27,7 @@ void Individu::attaquer(int degats, Individu * cible) const
 
 int Individu::attaqueDeBase() const
 {
-	cout << nom << " attaque !" << endl;
+	std::cout << nom << " attaque !" << std::endl;
 	return rand() % 10 + 10;
 }
 
@@ -36,14 +41,14 @@ void Individu::subirDegat(int degats)
 
 void Individu::tuer()
 {
-	cout << nom << " succombe à ses blessures !" << endl << endl;
+	std::cout << nom << " succombe à ses blessures !" << std::endl << std::endl;
 	vivant = 0;
 	pv = 0;
 }
 
 void Individu::soigner(int soin)
 {
-	cout << nom << " récupère " << soin << " points de vie !" << endl << endl;
+	std::cout << nom << " récupère " << soin << " points de vie !" << std::endl << std::endl;
 	
 	if (pv + soin > pvmax)
 		pv = pvmax;
@@ -53,16 +58,15 @@ void Individu::soigner(int soin)
 
 void Individu::perdreVie(int degats)
 {
+	std::cout << nom << " perd " << degats << " points de vie !" << std::endl << std::endl;
+
 	if (pv - degats <= 0)
 		tuer();
 	else
-	{
-		cout << nom << " perd " << degats << " points de vie !" << endl << endl;
 		pv -= degats;
-	}
 }	
 
-string Individu::getNom() const
+std::string Individu::getNom() const
 {
 	return nom;
 }
