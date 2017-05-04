@@ -24,18 +24,12 @@ class Monstre : public Individu
 		float degats;	//!< Multiplicateur de dégats
 	public:
 		/*!
-		 * \brief Constructeur par défaut des monstres
-		 *
-		 * Crée un "Grand méchant loup".
-		 */
-		Monstre();
-		/*!
 		 * \brief Constructeur avec nom
 		 *
 		 * Crée un monstre au nom personnalisé.
 		 * \param nom_monstre : le nom du monstre
 		 * \param pv_monstre : les points de vie du monstre
-		 * \param : le multiplicateur de dégats du monstre
+		 * \param degats_monstre : le multiplicateur de dégats du monstre
 		 */
 		Monstre(std::string, int, float);
 
