@@ -10,7 +10,7 @@
 
 #include "individu.hpp"
 
-Monstre::Monstre(std::string nom_monstre, int pv_monstre, float degats_monstre) : Individu(nom_monstre), degats(degats_monstre)
+Monstre::Monstre(std::string nom_monstre = "Monstre", int pv_monstre = 70, float degats_monstre = 1) : Individu(nom_monstre), degats(degats_monstre)
 {
 	pv = pvmax = pv_monstre;
 }
