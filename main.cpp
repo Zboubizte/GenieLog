@@ -4,7 +4,7 @@
  * \author Ken Bres
  */
 
- #include "jeu.hpp"
+#include "jeu.hpp"
 #include "fonctions.hpp"
 
 int main()
@@ -12,6 +12,8 @@ int main()
 	cout << "Bienvenue dans The Game, un jeu développé par Ken Bres, Charles Prin Clary et Mamadou Diallo !" << endl << endl;
 	int param[4];
 	string nom;
+
+	srand(time(0));
 
 	do
 	{
