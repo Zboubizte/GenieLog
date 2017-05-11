@@ -55,7 +55,7 @@ void Personnage::choixAttaque(Individu * cible)
 		std::cout << "Que faire :" << std::endl;
 		std::cout << "  1) " << getBasic() << std::endl;
 		std::cout << "  2) " << getSpecial() << " (-15 mana)" << std::endl;
-		std::cout << "  3) Tout ou rien (-50 à 50)" << std::endl;
+		std::cout << "  3) Coup de poker (-20 à 60) (-5 mana)" << std::endl;
 		std::cout << "  4) Voir l'inventaire" << std::endl << std::endl;
 		std::cout << "Votre choix : ";
 		choix = saisirInt(0, 5);
@@ -79,7 +79,16 @@ void Personnage::choixAttaque(Individu * cible)
 				}
 				break;
 			case 3:
-				cible -> attaquer(attaqueRandom(), cible);
+				if (mana >= 5)
+				{
+					cible -> attaquer(attaqueRandom(), cible);
+					mana -= 5;
+				}
+				else
+				{
+					std::cout << "Pas assez de mana !" << std::endl << std::endl;
+					attaqueReussie = 0;
+				}
 				break;
 			case 4:
 				attaqueReussie = prendrePotion();
@@ -103,8 +112,8 @@ int Personnage::attaqueSpeciale()
 
 int Personnage::attaqueRandom() const
 {
-	std::cout << getNom() << " tente le tout pour le tout !" << std::endl;
-	return random(-50, 50);
+	std::cout << getNom() << " tente un coup de Poker !" << std::endl;
+	return random(-20, 60);
 }
 
 void Personnage::newPosition(int x, int y)
@@ -158,6 +167,15 @@ bool Personnage::inventaireVide()
 			return 0;
 
 	std::cout << "  Votre inventaire est vide !" << std::endl;
+	return 1;
+}
+
+bool Personnage::inventairePlein()
+{
+	for (int i = 0; i < 10; i++)
+		if (!inventaire[i])
+			return 0;
+
 	return 1;
 }
 

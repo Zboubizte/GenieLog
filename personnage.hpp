@@ -108,6 +108,13 @@ class Personnage : public Individu
 		*/
 		bool inventaireVide();
 		/*!
+		 * \brief Permet de savoir si l'inventaire est plein
+		 *
+		 * Regarde chaque case du tableau de pointeur, dès qu'une case est à null, l'inventaire n'est pas plein.
+		 * return true si plein, false sinon.
+		*/
+		bool inventairePlein();
+		/*!
 		 * \brief Rend des points de mana au personnage
 		 *
 		 * Rend des points de mana sans pour autant dépasser les points de mana maximum.

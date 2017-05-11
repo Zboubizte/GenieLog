@@ -78,7 +78,13 @@ void Jeu::jouer()
 			y = joueur -> getPosY();
 
 		if (map -> contientConsommable(x, y))
-			joueur -> ajouterPotion(map -> getConsommable(x, y));
+			if (!joueur -> inventairePlein())
+				joueur -> ajouterPotion(map -> getConsommable(x, y));
+			else
+			{	
+				std::cout << "Vous trouvez une potion mais ne pouvez pas la ramasser car votre inventaire est plein !" << std::endl << std::endl;
+				continuer();
+			}
 
 		map -> visiterCase(x, y);
 
